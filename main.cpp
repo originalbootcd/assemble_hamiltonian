@@ -49,6 +49,51 @@ double DDS		= 0.0;
 double DDP		= 0.0;
 double DDD		= 0.0;
 
+double a_lattice = 0.0;
+double bond_length = 0.0;
+double Es = 0.0;
+double Ep = 0.0;
+double Es_ = 0.0;
+double Ed = 0.0;
+double delta = 0.0;
+
+double strain_exponent_V_S_S_Sigma = 0.0;
+double strain_exponent_V_S_P_Sigma = 0.0;
+double strain_exponent_V_Sstar_P_Sigma = 0.0;
+double strain_exponent_V_S_Sstar_Sigma = 0.0;
+double strain_exponent_V_Sstar_S_Sigma = 0.0;
+double strain_exponent_V_Sstar_Sstar_Sigma = 0.0;
+double strain_exponent_V_Sstar_D_Sigma = 0.0;
+double strain_exponent_V_S_D_Sigma = 0.0;
+double strain_exponent_V_P_P_Sigma = 0.0;
+double strain_exponent_V_P_P_Pi = 0.0;
+double strain_exponent_V_P_D_Sigma = 0.0;
+double strain_exponent_V_P_D_Pi = 0.0;
+double strain_exponent_V_D_D_Sigma = 0.0;
+double strain_exponent_V_D_D_Pi = 0.0;
+double strain_exponent_V_D_D_Delta = 0.0;
+
+double strain_constant_K_S_S = 0.0;
+double strain_constant_K_S_P = 0.0;
+double strain_constant_K_Sstar_P = 0.0;
+double strain_constant_K_Sstar_S = 0.0;
+double strain_constant_K_S_Sstar = 0.0;
+double strain_constant_K_Sstar_D = 0.0;
+double strain_constant_K_Sstar_Sstar = 0.0;
+double strain_constant_K_S_D = 0.0;
+double strain_constant_K_P_D = 0.0;
+double strain_constant_K_P_P = 0.0;
+double strain_constant_K_D_D = 0.0;
+
+double Z_eff = 0.0;
+double r_P_D = 0.0;
+double r2_P_P = 0.0;
+double r2_D_D = 0.0;
+double r3_P_D = 0.0;
+double r4_D_D = 0.0;
+
+double Energy_shift = 0.0;
+
 
 ////////////////////////////////////////////////
 
@@ -303,58 +348,44 @@ int main() {
 
 
 
-
-			double a_lattice = 0.56579060;
-			double bond_length = sqrt(3.0)/4.0 * a_lattice;
-			double Es = -1.95617;
-			double Ep = 5.3097;
-			double Es_ = 19.296;
-			double Ed = 13.5806;
-			double delta = 0.20264;
-
-
-			double strain_exponent_V_S_S_Sigma = 1.99551;
-			double strain_exponent_V_S_P_Sigma = 1.29303;
-			double strain_exponent_V_Sstar_P_Sigma = 5.0000;
-			double strain_exponent_V_S_Sstar_Sigma = 0.0000;
-			double strain_exponent_V_Sstar_S_Sigma = 0.0000;
-			double strain_exponent_V_Sstar_Sstar_Sigma = 2.38823;
-			double strain_exponent_V_Sstar_D_Sigma = 0.75134;
-			double strain_exponent_V_S_D_Sigma = 2.79244;
-			double strain_exponent_V_P_P_Sigma = 1.13641;
-			double strain_exponent_V_P_P_Pi = 1.74803;
-			double strain_exponent_V_P_D_Sigma = 2.68784;
-			double strain_exponent_V_P_D_Pi = 4.36921;
-			double strain_exponent_V_D_D_Sigma = 5.00000;
-			double strain_exponent_V_D_D_Pi = 0.69769;
-			double strain_exponent_V_D_D_Delta = 3.06253;
+			a_lattice = 0.56579060;
+			bond_length = sqrt(3.0)/4.0 * a_lattice;
+			Es = -1.95617;
+			Ep = 5.3097;
+			Es_ = 19.296;
+			Ed = 13.5806;
+			delta = 0.20264;
 
 
-			double strain_constant_C_S_S = 0.0000;
-			double strain_constant_C_S_P = 2.03278;
-			double strain_constant_C_Sstar_P = 6.28624;
-			double strain_constant_C_Sstar_S = 1.86887;
-			double strain_constant_C_S_Sstar = 1.86887;
-			double strain_constant_C_Sstar_D = 1.98112;
-			double strain_constant_C_Sstar_Sstar = 6.28624;
-			double strain_constant_C_S_D = 0.16396;
-			double strain_constant_C_P_D = 0.12084;
-			double strain_constant_C_P_P = 0.42830;
-			double strain_constant_C_D_D = 3.85908;
+			strain_exponent_V_S_S_Sigma = 1.99551;
+			strain_exponent_V_S_P_Sigma = 1.29303;
+			strain_exponent_V_Sstar_P_Sigma = 5.0000;
+			strain_exponent_V_S_Sstar_Sigma = 0.0000;
+			strain_exponent_V_Sstar_S_Sigma = 0.0000;
+			strain_exponent_V_Sstar_Sstar_Sigma = 2.38823;
+			strain_exponent_V_Sstar_D_Sigma = 0.75134;
+			strain_exponent_V_S_D_Sigma = 2.79244;
+			strain_exponent_V_P_P_Sigma = 1.13641;
+			strain_exponent_V_P_P_Pi = 1.74803;
+			strain_exponent_V_P_D_Sigma = 2.68784;
+			strain_exponent_V_P_D_Pi = 4.36921;
+			strain_exponent_V_D_D_Sigma = 5.00000;
+			strain_exponent_V_D_D_Pi = 0.69769;
+			strain_exponent_V_D_D_Delta = 3.06253;
 
-			double Energy_shift = 27.77;
+			strain_constant_K_S_S = 0.0000;
+			strain_constant_K_S_P = 1.2507;
+			strain_constant_K_Sstar_P = 2.6841;
+			strain_constant_K_Sstar_S = 1.1766;
+			strain_constant_K_S_Sstar = 1.1766;
+			strain_constant_K_Sstar_D = 1.2276;
+			strain_constant_K_Sstar_Sstar = 2.6841;
+			strain_constant_K_S_D = 0.1524;
+			strain_constant_K_P_D = 0.1143;
+			strain_constant_K_P_P = 0.3626;
+			strain_constant_K_D_D = 1.9527;
 
-			// strain_constant_K_S_S = 0;
-			// strain_constant_K_S_P = 0;
-			// strain_constant_K_Sstar_P = 0;
-			// strain_constant_K_Sstar_S = 0;
-			// strain_constant_K_S_Sstar = 0;
-			// strain_constant_K_Sstar_D = 0;
-			// strain_constant_K_Sstar_Sstar = 0;
-			// strain_constant_K_S_D = 0;
-			// strain_constant_K_P_D = 0;
-			// strain_constant_K_P_P = 0;
-			// strain_constant_K_D_D = 0;
+			Energy_shift = 27.77;
 
 			bool ifSIcurrentPsi = currentPsi->d->sostav; //ifSI(v1);
 			if (ifSIcurrentPsi == true) {
@@ -382,23 +413,23 @@ int main() {
 				strain_exponent_V_D_D_Pi = 6;
 				strain_exponent_V_D_D_Delta = 5.9997;
 
-				double strain_constant_K_S_S = 1.0875;
-				double strain_constant_K_S_P = 0.4001;
-				double strain_constant_K_Sstar_P = 1.8597;
-				double strain_constant_K_Sstar_S = 1.1374;
-				double strain_constant_K_S_Sstar = 1.1374;
-				double strain_constant_K_Sstar_D = 0.2978;
-				double strain_constant_K_Sstar_Sstar = 0.5986;
-				double strain_constant_K_S_D = 0;
-				double strain_constant_K_P_D = 0.0564;
-				double strain_constant_K_P_P = 0;
-				double strain_constant_K_D_D = 2.1071;
-				double Z_eff = 3.0;
-				double r_P_D = 0.1249;
-				double r2_P_P = 0.1227;
-				double r2_D_D = 0.5147;
-				double r3_P_D = 0.0;
-				double r4_D_D = 0.7661;
+				strain_constant_K_S_S = 1.0875;
+				strain_constant_K_S_P = 0.4001;
+				strain_constant_K_Sstar_P = 1.8597;
+				strain_constant_K_Sstar_S = 1.1374;
+				strain_constant_K_S_Sstar = 1.1374;
+				strain_constant_K_Sstar_D = 0.2978;
+				strain_constant_K_Sstar_Sstar = 0.5986;
+				strain_constant_K_S_D = 0;
+				strain_constant_K_P_D = 0.0564;
+				strain_constant_K_P_P = 0;
+				strain_constant_K_D_D = 2.1071;
+				Z_eff = 3.0;
+				r_P_D = 0.1249;
+				r2_P_P = 0.1227;
+				r2_D_D = 0.5147;
+				r3_P_D = 0.0;
+				r4_D_D = 0.7661;
 				Energy_shift = 27;
 			}
 			
@@ -424,7 +455,6 @@ int main() {
 #endif
 
 
-			/// first neighbour
 			List<Atom> *currentNeighbour = currentPsi->d->neighbours;
 			while (currentNeighbour) {
 				V<double> v2;
@@ -620,18 +650,18 @@ int main() {
 			}
 			
 
-			for(long i=0; i<5; i++) {
+			for(long i=0; i<10; i++) {
 				bool ifTheFirst = false;
-				for(long j=0; j<10*N; j++) {
+				for(long j=0; j<20*N; j++) {
 #ifdef UCSR
-					if ( !((Htmp[i*10*N + j].real() == 0) && (Htmp[i*10*N + j].imag() == 0)) && (j >= i+5*(currentPsi->d->n-1)) ) {
+					if ( !((Htmp[i*20*N + j].real() == 0) && (Htmp[i*20*N + j].imag() == 0)) && (j >= i+10*(currentPsi->d->n-1)) ) {
 #endif
 #ifdef CSR
-					if ( !((Htmp[i*10*N + j].real() == 0) && (Htmp[i*10*N + j].imag() == 0))                                    ) {
+					if ( !((Htmp[i*20*N + j].real() == 0) && (Htmp[i*20*N + j].imag() == 0))                                    ) {
 #endif
-						CSRval[currentCSRval] = Htmp[i*10*N + j];
+						CSRval[currentCSRval] = Htmp[i*20*N + j];
 						if (!ifTheFirst) {
-							CSRrows[i+5*(currentPsi->d->n-1)] = currentCSRval+1;
+							CSRrows[i+10*(currentPsi->d->n-1)] = currentCSRval+1;
 							ifTheFirst = true;
 						}
 						CSRcols[currentCSRval] = j+1;
@@ -642,13 +672,13 @@ int main() {
 
 #ifdef PRINT_H
 			// Hamiltonean printer
-			for(int i=0; i<5; i++) {
-				for(int j=0; j<10*N; j++) {
+			for(int i=0; i<10; i++) {
+				for(int j=0; j<20*N; j++) {
 					fprintf(out, "(");
-					if (Htmp[i*10*N+j].real()>=0) fprintf(out, "+"); else fprintf(out, "-");
-					fprintf(out, "%3.3f ", abs(Htmp[i*10*N+j].real()));
-					if (Htmp[i*10*N+j].imag()>=0) fprintf(out, "+"); else fprintf(out, "-");
-					fprintf(out, "%3.3f)\t", abs(Htmp[i*10*N+j].imag()));
+					if (Htmp[i*20*N+j].real()>=0) fprintf(out, "+"); else fprintf(out, "-");
+					fprintf(out, "%3.3f ", abs(Htmp[i*20*N+j].real()));
+					if (Htmp[i*20*N+j].imag()>=0) fprintf(out, "+"); else fprintf(out, "-");
+					fprintf(out, "%3.3f)\t", abs(Htmp[i*20*N+j].imag()));
 				}
 				fprintf(out, "\n");
 			}
@@ -661,7 +691,7 @@ int main() {
 		#endif
 
 ///////////////////////////  spin   minus  ///////////////////////////////////
-/*		currentPsi = psi.atoms;
+		currentPsi = psi.atoms;
 		#ifdef UI
 		cout << "spin minus" << endl;
 		#endif
@@ -673,56 +703,96 @@ int main() {
 				#endif
 				csrProgress += N/10;
 			}
-			for(long i=0; i<5 * 10*N; i++)
+			for(long i=0; i<10 * 20*N; i++)
 				Htmp[i]=0.0;
-			V<double> v1;
-			v1.x = currentPsi->d->x;
-			v1.y = currentPsi->d->y;
-			v1.z = currentPsi->d->z;
+			V<double> v1(currentPsi->d->x, currentPsi->d->y, currentPsi->d->z);
 
 
-			double delta		=	0.29;
-			double Es		=	-5.88;
-			double Ep		=	1.61;
-			double Es_		=	6.39;
-			double SSS		=	-6.78/4.0;
-			double SPS		=	sqrt(3.0)/4.0*5.4649;
-			double PPS		=	(1.61+2.0*4.9)/4.0;
-			double PPP		=	(1.61-    4.9)/4.0;
-			double S_S_S		=	0;
-			double S_PS		=	sqrt(3.0)/4.0*5.2191;
-			double SS_S		=	0;
 
-			double A		=	1e-40;
-			double B		=	1e-40;
-			double C		=	1e-40;
-			double B_		=	1e-40;
-			double C_		=	1e-40;
-			double D		=	1e-40;
-			double E		=	1e-40;
-			double F		=	1e-40;
-			double G		=	1e-40;
+			a_lattice = 0.56579060;
+			bond_length = sqrt(3.0)/4.0 * a_lattice;
+			Es = -1.95617;
+			Ep = 5.3097;
+			Es_ = 19.296;
+			Ed = 13.5806;
+			delta = 0.20264;
+
+			strain_exponent_V_S_S_Sigma = 1.99551;
+			strain_exponent_V_S_P_Sigma = 1.29303;
+			strain_exponent_V_Sstar_P_Sigma = 5.0000;
+			strain_exponent_V_S_Sstar_Sigma = 0.0000;
+			strain_exponent_V_Sstar_S_Sigma = 0.0000;
+			strain_exponent_V_Sstar_Sstar_Sigma = 2.38823;
+			strain_exponent_V_Sstar_D_Sigma = 0.75134;
+			strain_exponent_V_S_D_Sigma = 2.79244;
+			strain_exponent_V_P_P_Sigma = 1.13641;
+			strain_exponent_V_P_P_Pi = 1.74803;
+			strain_exponent_V_P_D_Sigma = 2.68784;
+			strain_exponent_V_P_D_Pi = 4.36921;
+			strain_exponent_V_D_D_Sigma = 5.00000;
+			strain_exponent_V_D_D_Pi = 0.69769;
+			strain_exponent_V_D_D_Delta = 3.06253;
+
+
+			strain_constant_K_S_S = 0.0000;
+			strain_constant_K_S_P = 1.2507;
+			strain_constant_K_Sstar_P = 2.6841;
+			strain_constant_K_Sstar_S = 1.1766;
+			strain_constant_K_S_Sstar = 1.1766;
+			strain_constant_K_Sstar_D = 1.2276;
+			strain_constant_K_Sstar_Sstar = 2.6841;
+			strain_constant_K_S_D = 0.1524;
+			strain_constant_K_P_D = 0.1143;
+			strain_constant_K_P_P = 0.3626;
+			strain_constant_K_D_D = 1.9527;
+
+			Energy_shift = 27.77;
+
 
 			bool ifSIcurrentPsi = currentPsi->d->sostav; //ifSI(v1);
 			if (ifSIcurrentPsi == true) {
-				delta		=	0.04503;
-				Es		=	-4.81341;
-				Ep		=	1.77563;
-				Es_		=	5.61342;
-				SSS	=	-8.33255/4.0;
-				SPS	=	sqrt(3.0)/4.0*5.86140;
-				PPS	=	(1.69916+2.0*5.29091)/4.0;
-				PPP	=	(1.69916-    5.29091)/4.0;
-				S_PS	=	sqrt(3.0)/4.0*4.88308;
-				A		=	0.01591/4.0;
-				B		=	0.08002/4.0;
-				C		=	-1.31699/4.0;		//-
-				B_		=	-0.00579/4.0;
-				C_		=	-0.50103/4.0;		//-
-				D		=	0.00762/4.0;
-				E		=	-0.10662/4.0;
-				F		=	0.55067/4.0;
-				G		=	-2.27784/4.0;		//-
+				a_lattice = 0.54310;
+				bond_length = sqrt(3.0)/4.0 * a_lattice;
+				Es = -2.15168;
+				Ep = 4.22925;
+				Es_ = 19.1165;
+				Ed = 13.7895;
+				delta = 0.03978;
+
+				strain_exponent_V_S_S_Sigma = 0.56247;
+				strain_exponent_V_S_P_Sigma = 2.36548;
+				strain_exponent_V_Sstar_P_Sigma = 0.34492;
+				strain_exponent_V_S_Sstar_Sigma = 0.13203;
+				strain_exponent_V_Sstar_S_Sigma = 0.13203;
+				strain_exponent_V_Sstar_Sstar_Sigma = 0.19237;
+				strain_exponent_V_Sstar_D_Sigma = 1.08601;
+				strain_exponent_V_S_D_Sigma = 2.56720;
+				strain_exponent_V_P_P_Sigma = 0.2;
+				strain_exponent_V_P_P_Pi = 1.6777;
+				strain_exponent_V_P_D_Sigma = 0.2;
+				strain_exponent_V_P_D_Pi = 4.4325;
+				strain_exponent_V_D_D_Sigma = 0.1;
+				strain_exponent_V_D_D_Pi = 6;
+				strain_exponent_V_D_D_Delta = 5.9997;
+
+				strain_constant_K_S_S = 1.0875;
+				strain_constant_K_S_P = 0.4001;
+				strain_constant_K_Sstar_P = 1.8597;
+				strain_constant_K_Sstar_S = 1.1374;
+				strain_constant_K_S_Sstar = 1.1374;
+				strain_constant_K_Sstar_D = 0.2978;
+				strain_constant_K_Sstar_Sstar = 0.5986;
+				strain_constant_K_S_D = 0;
+				strain_constant_K_P_D = 0.0564;
+				strain_constant_K_P_P = 0;
+				strain_constant_K_D_D = 2.1071;
+				Z_eff = 3.0;
+				r_P_D = 0.1249;
+				r2_P_P = 0.1227;
+				r2_D_D = 0.5147;
+				r3_P_D = 0.0;
+				r4_D_D = 0.7661;
+				Energy_shift = 27;
 			}
 			
 
@@ -755,25 +825,58 @@ int main() {
 
 				bool ifSIcurrentNeighbour = currentNeighbour->d->sostav; //ifSI(v2);
 				if ((ifSIcurrentNeighbour == ifSIcurrentPsi) && (ifSIcurrentPsi == false)) {
-					SSS		=	-6.78/4.0;
-					SPS		=	sqrt(3.0)/4.0*5.4649;
-					PPS		=	(1.61+2.0*4.9)/4.0;
-					PPP		=	(1.61-    4.9)/4.0;
-					S_PS		=	sqrt(3.0)/4.0*5.2191;
+					//GE-GE
+					SPS = 2.73135;
+					PDS = -2.00115;
+					S_PS = 2.68638;
+					SDS = -2.64779;
+					PDP = 2.10953;
+					S_DS = -1.12312;
+					SSS = -1.39456;
+					S_SS = -2.0183;
+					SS_S = -2.0183;
+					S_S_S = -3.5668;
+					PPS = 4.28921;
+					PPP = -1.73707;
+					DDS = -1.32941;
+					DDP = 2.56261;
+					DDD = -1.9512;
 				}
 				if ((ifSIcurrentNeighbour == ifSIcurrentPsi) && (ifSIcurrentPsi == true)) {
-					SSS	=	-8.33255/4.0;
-					SPS	=	sqrt(3.0)/4.0*5.86140;
-					PPS	=	(1.69916+2.0*5.29091)/4.0;
-					PPP	=	(1.69916-    5.29091)/4.0;
-					S_PS	=	sqrt(3.0)/4.0*4.88308;
+					//SI-SI
+					SPS = 3.02562;
+					PDS = -1.35554;
+					S_PS = 3.15565;
+					SDS = -2.28485;
+					PDP = 2.38479;
+					S_DS = -0.80993;
+					SSS = -1.95933;
+					S_SS = -1.5223;
+					SS_S = -1.5223;
+					S_S_S = -4.24135;
+					PPS = 4.10364;
+					PPP = -1.51801;
+					DDS = -1.68136;
+					DDP = 2.5888;
+					DDD = -1.814;
 				}
 				if (ifSIcurrentNeighbour != ifSIcurrentPsi) {
-					SSS		=	(-6.78-8.33255)/8.0;
-					SPS		=	sqrt(3.0)/8.0*(5.86140+5.4649);
-					PPS		=	(1.69916+2.0*5.29091)/8.0 + (1.61+2.0*4.9)/8.0;
-					PPP		=	(1.69916-    5.29091)/8.0 + (1.61-    4.9)/8.0;
-					S_PS	=	sqrt(3.0)/8.0*(4.88308+5.2191);
+					//GE-SI
+					SPS   = 2.878485;	// (2.73135+3.02562)/2.0;
+					PDS   = -1.678345;	// (-2.00115-1.35554)/2.0;
+					S_PS  = 2.921015;	// (2.68638+3.15565)/2.0;
+					SDS   = -2.46632;	// (-2.64779-2.28485)/2.0;
+					PDP   = 2.24716;	// (2.10953+2.38479)/2.0;
+					S_DS  = -0.966525;	// (-1.12312-0.80993)/2.0;
+					SSS   = -1.676945;	// (-1.39456-1.95933)/2.0;
+					S_SS  = -1.7703;	// (-2.0183-1.5223)/2.0;
+					SS_S  = -1.7703;	// (-2.0183-1.5223)/2.0;
+					S_S_S = -3.904075;	// (-3.5668-4.24135)/2.0;
+					PPS   = 4.196425;	// (4.28921+4.10364)/2.0;
+					PPP   = -1.62754;	// (-1.73707-1.51801)/2.0;
+					DDS   = -1.505385;	// (-1.32941-1.68136)/2.0;
+					DDP   = 2.575705;	// (2.56261+2.5888)/2.0;
+					DDD   = -1.8826;	// (-1.9512-1.814)/2.0;
 				}
 
 
@@ -782,7 +885,7 @@ int main() {
 				v12 = v2 - v1;
 				if (fabs(v12.x) > volumeSize/2.0) {
 					v12.x -= volumeSize*v12.x/fabs(v12.x);
-					boundaryCoeff = li;
+					//boundaryCoeff = li;
 				}
 				if (fabs(v12.y) > volumeSize/2.0)
 					v12.y -= volumeSize*v12.y/fabs(v12.y);
@@ -914,18 +1017,18 @@ int main() {
 
 
 
-			for(long i=0; i<5; i++) {
+			for(long i=0; i<10; i++) {
 				bool ifTheFirst = false;
-				for(long j=0; j<10*N; j++) {
+				for(long j=0; j<20*N; j++) {
 #ifdef UCSR
-					if ( !((Htmp[i*10*N + j].real() == 0) && (Htmp[i*10*N + j].imag() == 0)) && (j >= i+5*(currentPsi->d->n-1)+5*N) ) {
+					if ( !((Htmp[i*20*N + j].real() == 0) && (Htmp[i*20*N + j].imag() == 0)) && (j >= i+10*(currentPsi->d->n-1)+10*N) ) {
 #endif
 #ifdef CSR
-					if ( !((Htmp[i*10*N + j].real() == 0) && (Htmp[i*10*N + j].imag() == 0))                                        ) {
+					if ( !((Htmp[i*20*N + j].real() == 0) && (Htmp[i*20*N + j].imag() == 0))                                        ) {
 #endif
-						CSRval[currentCSRval] = Htmp[i*10*N + j];
+						CSRval[currentCSRval] = Htmp[i*20*N + j];
 						if (!ifTheFirst) {
-							CSRrows[i+5*(currentPsi->d->n-1)+5*N] = currentCSRval+1;
+							CSRrows[i+10*(currentPsi->d->n-1)+10*N] = currentCSRval+1;
 							ifTheFirst = true;
 						}
 						CSRcols[currentCSRval] = j+1;
@@ -936,13 +1039,13 @@ int main() {
 
 #ifdef PRINT_H
 			// Hamiltonian printer
-			for(int i=0; i<5; i++) {
-				for(int j=0; j<10*N; j++) {
+			for(int i=0; i<10; i++) {
+				for(int j=0; j<20*N; j++) {
 					fprintf(out, "(");
-					if (Htmp[i*10*N+j].real()>=0) fprintf(out, "+"); else fprintf(out, "-");
-					fprintf(out, "%3.3f ", abs(Htmp[i*10*N+j].real()));
-					if (Htmp[i*10*N+j].imag()>=0) fprintf(out, "+"); else fprintf(out, "-");
-					fprintf(out, "%3.3f)\t", abs(Htmp[i*10*N+j].imag()));
+					if (Htmp[i*20*N+j].real()>=0) fprintf(out, "+"); else fprintf(out, "-");
+					fprintf(out, "%3.3f ", abs(Htmp[i*20*N+j].real()));
+					if (Htmp[i*20*N+j].imag()>=0) fprintf(out, "+"); else fprintf(out, "-");
+					fprintf(out, "%3.3f)\t", abs(Htmp[i*20*N+j].imag()));
 				}
 				fprintf(out, "\n");
 			}
@@ -953,14 +1056,14 @@ int main() {
 		#ifdef UI
 		cout << endl;
 		#endif
-*/
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 		#ifdef UI
 		cout << "writing CSR into file" << endl;
 		#endif
 		if (currentCSRval != CSRsize)
 			cerr << "error: currentCSRval == " << currentCSRval << " != CSRsize" << endl;
-		fprintf(out, "%i ", 10*N);
+		fprintf(out, "%i ", 20*N);
 		fprintf(out, "%i\n", currentCSRval);
 		for(long i=0; i<CSRsize; i++)
 			fprintf(out, "%f ", CSRval[i].real());
@@ -968,7 +1071,7 @@ int main() {
 		for(long i=0; i<CSRsize; i++)
 			fprintf(out, "%f ", CSRval[i].imag());
 		fprintf(out, "\n");
-		for(long i=0; i<10*N; i++)
+		for(long i=0; i<20*N; i++)
 			fprintf(out, "%i ", CSRrows[i]);
 		fprintf(out, "\n");
 		for(long i=0; i<CSRsize; i++)
