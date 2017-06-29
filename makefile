@@ -1,6 +1,6 @@
-CXX			= g++
+CXX		= icpc
 CXXFLAGS	= -std=c++11 -g
-INCLUDE		= ../../../boost_1_49_0
+INCLUDE		= $(HOME)/anton/boost_1_49_0
 
 
 all:

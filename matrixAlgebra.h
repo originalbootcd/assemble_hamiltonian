@@ -17,6 +17,7 @@ boost::numeric::ublas::matrix<double> operator *(boost::numeric::ublas::matrix<d
 	return tmp;
 }
 
+
 boost::numeric::ublas::vector<double> operator *(boost::numeric::ublas::vector<double> v, boost::numeric::ublas::matrix<double> m) {
 	if (v.size() != m.size1())
 		cerr << "error: in the vector<double> operator *(vector<double> v, matrix<double> m);  matrix and vector sizes do not match each other" << endl;
@@ -48,3 +49,4 @@ boost::numeric::ublas::matrix<double> Transpose(boost::numeric::ublas::matrix<do
 			tmp(i,j) = m(j,i);
 	return tmp;
 }
+
