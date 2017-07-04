@@ -728,7 +728,7 @@ int main() {
 				Ed = 13.7895;
 				delta = 0.03978;
 
-				strain_exponent_V_S_S_Sigma = 0.56247;
+				strain_exponent_V_S_S_Sigma	= 0.56247;
 				strain_exponent_V_S_P_Sigma = 2.36548;
 				strain_exponent_V_Sstar_P_Sigma = 0.34492;
 				strain_exponent_V_S_Sstar_Sigma = 0.13203;
@@ -903,10 +903,50 @@ int main() {
 					v12.y -= volumeSizeY*v12.y/fabs(v12.y);
 				if (fabs(v12.z) > volumeSizeZ/2.0)
 					v12.z -= volumeSizeZ*v12.z/fabs(v12.z);
-				v12 = (1.0/sqrt(v12*v12))*v12;
-				double l = v12.x;
-				double m = v12.y;
-				double n = v12.z;
+				V<double> v12norm = (1.0/sqrt(v12*v12))*v12;
+				double l = v12norm.x;
+				double m = v12norm.y;
+				double n = v12norm.z;
+#ifdef BOYKIN2002
+				V<double> v1unstrained;
+				v1unstrained.x = currentPsi->d->x;
+				v1unstrained.y = currentPsi->d->y;
+				v1unstrained.z = currentPsi->d->z;
+				V<double> v2unstrained;
+				v2unstrained.x = currentNeighbour->d->x;
+				v2unstrained.y = currentNeighbour->d->y;
+				v2unstrained.z = currentNeighbour->d->z;
+				V<double> v12unstrained;
+				v12unstrained = v2unstrained - v1unstrained;
+
+				if (fabs(v12unstrained.x) > volumeSize/2.0)
+					v12unstrained.x -= volumeSize*v12unstrained.x/fabs(v12unstrained.x);
+				if (fabs(v12unstrained.y) > volumeSize/2.0)
+					v12unstrained.y -= volumeSize*v12unstrained.y/fabs(v12unstrained.y);
+				if (fabs(v12unstrained.z) > volumeSize/2.0)
+					v12unstrained.z -= volumeSize*v12unstrained.z/fabs(v12unstrained.z);
+				V<double> v12unstrainedNorm = (1.0/sqrt(v12unstrained*v12unstrained))*v12unstrained;
+
+				double d  = sqrt(v12*v12);
+				double d0 = sqrt(v12unstrained*v12unstrained);
+
+
+				SPS		*= pow(d0/d, strain_exponent_V_S_P_Sigma);
+				PDS		*= pow(d0/d, strain_exponent_V_P_D_Sigma);
+				S_PS	*= pow(d0/d, strain_exponent_V_Sstar_P_Sigma);
+				SDS		*= pow(d0/d, strain_exponent_V_S_D_Sigma);
+				PDP		*= pow(d0/d, strain_exponent_V_P_D_Pi);
+				S_DS	*= pow(d0/d, strain_exponent_V_Sstar_D_Sigma);
+				SSS		*= pow(d0/d, strain_exponent_V_S_S_Sigma);
+				S_SS	*= pow(d0/d, strain_exponent_V_Sstar_S_Sigma);
+				SS_S	*= pow(d0/d, strain_exponent_V_S_Sstar_Sigma);
+				S_S_S	*= pow(d0/d, strain_exponent_V_Sstar_Sstar_Sigma);
+				PPS		*= pow(d0/d, strain_exponent_V_P_P_Sigma);
+				PPP		*= pow(d0/d, strain_exponent_V_P_P_Pi);
+				DDS		*= pow(d0/d, strain_exponent_V_D_D_Sigma);
+				DDP		*= pow(d0/d, strain_exponent_V_D_D_Pi);
+				DDD		*= pow(d0/d, strain_exponent_V_D_D_Delta);
+#endif
 
 				//{
 				Htmp[0*20*N + (currentNeighbour->d->n-1)*10    ] =   boundaryCoeff * SSS;
@@ -1026,29 +1066,12 @@ int main() {
 
 
 #ifdef BOYKIN2002
-				V<double> v1unstrained;
-				v1unstrained.x = currentPsi->d->x;
-				v1unstrained.y = currentPsi->d->y;
-				v1unstrained.z = currentPsi->d->z;
-				V<double> v2unstrained;
-				v2unstrained.x = currentNeighbour->d->x;
-				v2unstrained.y = currentNeighbour->d->y;
-				v2unstrained.z = currentNeighbour->d->z;
 				boundaryCoeff = 1.0;
-				V<double> v12unstrained;
-				v12unstrained = v2unstrained - v1unstrained;
-				if (fabs(v12unstrained.x) > volumeSize/2.0) {
-					v12unstrained.x -= volumeSize*v12unstrained.x/fabs(v12unstrained.x);
+				if (fabs(v12unstrained.x) > volumeSize/2.0)
 					boundaryCoeff = BOUNDARYCOEFF;
-				}
-				if (fabs(v12unstrained.y) > volumeSize/2.0)
-					v12unstrained.y -= volumeSize*v12unstrained.y/fabs(v12unstrained.y);
-				if (fabs(v12unstrained.z) > volumeSize/2.0)
-					v12unstrained.z -= volumeSize*v12unstrained.z/fabs(v12unstrained.z);
-				v12unstrained = (1.0/sqrt(v12unstrained*v12unstrained))*v12unstrained;
-				l = v12unstrained.x;
-				m = v12unstrained.y;
-				n = v12unstrained.z;
+				l = v12unstrainedNorm.x;
+				m = v12unstrainedNorm.y;
+				n = v12unstrainedNorm.z;
 
 				complex<double> slaterkoster[10][10];
 				for (int i=0; i<10; i++)
@@ -1178,43 +1201,6 @@ int main() {
 							double Ejb = *E[beta] - Energy_shift;
 							double Eia = *E[alpha] - Energy_shift;
 							double Eig = *E[gamma] - Energy_shift;
-/*							switch (alpha) {
-								case 0: Eia = Es; break;
-								case 1: Eia = Ep; break;
-								case 2: Eia = Ep; break;
-								case 3: Eia = Ep; break;
-								case 4: Eia = Es_; break;
-								case 5: Eia = Ed; break;
-								case 6: Eia = Ed; break;
-								case 7: Eia = Ed; break;
-								case 8: Eia = Ed; break;
-								case 9: Eia = Ed; break;
-							}
-							switch (beta) {
-								case 0: Ejb = Es; break;
-								case 1: Ejb = Ep; break;
-								case 2: Ejb = Ep; break;
-								case 3: Ejb = Ep; break;
-								case 4: Ejb = Es_; break;
-								case 5: Ejb = Ed; break;
-								case 6: Ejb = Ed; break;
-								case 7: Ejb = Ed; break;
-								case 8: Ejb = Ed; break;
-								case 9: Ejb = Ed; break;
-							}
-							switch (gamma) {
-								case 0: Eig = Es; break;
-								case 1: Eig = Ep; break;
-								case 2: Eig = Ep; break;
-								case 3: Eig = Ep; break;
-								case 4: Eig = Es_; break;
-								case 5: Eig = Ed; break;
-								case 6: Eig = Ed; break;
-								case 7: Eig = Ed; break;
-								case 8: Eig = Ed; break;
-								case 9: Eig = Ed; break;
-							}
-*/
 							
 							Htmp[gamma*20*N + (currentPsi->d->n-1)*10 + alpha] += (Htmp[gamma*20*N + (currentNeighbour->d->n-1)*10 + beta]*Htmp[beta*20*N + (currentNeighbour->d->n-1)*10 + alpha] - slaterkoster[gamma][beta]*slaterkoster[beta][alpha]) * (-Kjbia/(Ejb+Eia)/2.0 -Kigjb/(Eig+Ejb)/2.0 -Kigjb*Kjbia*(1.0/(Ejb+Eia)+1.0/(Eig+Ejb))/4.0);
 						}
@@ -1299,7 +1285,6 @@ int main() {
 			for(long i=0; i<10 * 20*N; i++)
 				Htmp[i]=0.0;
 			V<double> v1(currentPsi->d->x + currentPsi->d->dx, currentPsi->d->y + currentPsi->d->dy, currentPsi->d->z + currentPsi->d->dz);
-
 
 
 
@@ -1411,6 +1396,7 @@ int main() {
 			Htmp[3*20*N + (currentPsi->d->n-1)*10 + 2       ] =   delta/3.0*li;
 #endif
 
+
 			List<Atom> *currentNeighbour = currentPsi->d->neighbours;
 			while (currentNeighbour) {
 				V<double> v2;
@@ -1474,7 +1460,6 @@ int main() {
 					DDD   = -1.8826;	// (-1.9512-1.814)/2.0;
 				}
 
-
 				complex<double> boundaryCoeff(1.0, 0.0);
 				V<double> v12;
 				v12 = v2 - v1;
@@ -1489,11 +1474,50 @@ int main() {
 					v12.y -= volumeSizeY*v12.y/fabs(v12.y);
 				if (fabs(v12.z) > volumeSizeZ/2.0)
 					v12.z -= volumeSizeZ*v12.z/fabs(v12.z);
-				v12 = (1.0/sqrt(v12*v12))*v12;
-				double l = v12.x;
-				double m = v12.y;
-				double n = v12.z;
+				V<double> v12norm = (1.0/sqrt(v12*v12))*v12;
+				double l = v12norm.x;
+				double m = v12norm.y;
+				double n = v12norm.z;
+#ifdef BOYKIN2002
+				V<double> v1unstrained;
+				v1unstrained.x = currentPsi->d->x;
+				v1unstrained.y = currentPsi->d->y;
+				v1unstrained.z = currentPsi->d->z;
+				V<double> v2unstrained;
+				v2unstrained.x = currentNeighbour->d->x;
+				v2unstrained.y = currentNeighbour->d->y;
+				v2unstrained.z = currentNeighbour->d->z;
+				V<double> v12unstrained;
+				v12unstrained = v2unstrained - v1unstrained;
 
+				if (fabs(v12unstrained.x) > volumeSize/2.0)
+					v12unstrained.x -= volumeSize*v12unstrained.x/fabs(v12unstrained.x);
+				if (fabs(v12unstrained.y) > volumeSize/2.0)
+					v12unstrained.y -= volumeSize*v12unstrained.y/fabs(v12unstrained.y);
+				if (fabs(v12unstrained.z) > volumeSize/2.0)
+					v12unstrained.z -= volumeSize*v12unstrained.z/fabs(v12unstrained.z);
+				V<double> v12unstrainedNorm = (1.0/sqrt(v12unstrained*v12unstrained))*v12unstrained;
+
+				double d  = sqrt(v12*v12);
+				double d0 = sqrt(v12unstrained*v12unstrained);
+
+
+				SPS		*= pow(d0/d, strain_exponent_V_S_P_Sigma);
+				PDS		*= pow(d0/d, strain_exponent_V_P_D_Sigma);
+				S_PS	*= pow(d0/d, strain_exponent_V_Sstar_P_Sigma);
+				SDS		*= pow(d0/d, strain_exponent_V_S_D_Sigma);
+				PDP		*= pow(d0/d, strain_exponent_V_P_D_Pi);
+				S_DS	*= pow(d0/d, strain_exponent_V_Sstar_D_Sigma);
+				SSS		*= pow(d0/d, strain_exponent_V_S_S_Sigma);
+				S_SS	*= pow(d0/d, strain_exponent_V_Sstar_S_Sigma);
+				SS_S	*= pow(d0/d, strain_exponent_V_S_Sstar_Sigma);
+				S_S_S	*= pow(d0/d, strain_exponent_V_Sstar_Sstar_Sigma);
+				PPS		*= pow(d0/d, strain_exponent_V_P_P_Sigma);
+				PPP		*= pow(d0/d, strain_exponent_V_P_P_Pi);
+				DDS		*= pow(d0/d, strain_exponent_V_D_D_Sigma);
+				DDP		*= pow(d0/d, strain_exponent_V_D_D_Pi);
+				DDD		*= pow(d0/d, strain_exponent_V_D_D_Delta);
+#endif
 
 				//{
 				Htmp[0*20*N + (currentNeighbour->d->n-1)*10     + 10*N] =   boundaryCoeff * SSS;
@@ -1611,35 +1635,20 @@ int main() {
 
 
 
+
 #ifdef BOYKIN2002
-				V<double> v1unstrained;
-				v1unstrained.x = currentPsi->d->x;
-				v1unstrained.y = currentPsi->d->y;
-				v1unstrained.z = currentPsi->d->z;
-				V<double> v2unstrained;
-				v2unstrained.x = currentNeighbour->d->x;
-				v2unstrained.y = currentNeighbour->d->y;
-				v2unstrained.z = currentNeighbour->d->z;
 				boundaryCoeff = 1.0;
-				V<double> v12unstrained;
-				v12unstrained = v2unstrained - v1unstrained;
-				if (fabs(v12unstrained.x) > volumeSize/2.0) {
-					v12unstrained.x -= volumeSize*v12unstrained.x/fabs(v12unstrained.x);
+				if (fabs(v12unstrained.x) > volumeSize/2.0)
 					boundaryCoeff = BOUNDARYCOEFF;
-				}
-				if (fabs(v12unstrained.y) > volumeSize/2.0)
-					v12unstrained.y -= volumeSize*v12unstrained.y/fabs(v12unstrained.y);
-				if (fabs(v12unstrained.z) > volumeSize/2.0)
-					v12unstrained.z -= volumeSize*v12unstrained.z/fabs(v12unstrained.z);
-				v12unstrained = (1.0/sqrt(v12unstrained*v12unstrained))*v12unstrained;
-				l = v12unstrained.x;				
-				m = v12unstrained.y;
-				n = v12unstrained.z;
+				l = v12unstrainedNorm.x;
+				m = v12unstrainedNorm.y;
+				n = v12unstrainedNorm.z;
 				
 				complex<double> slaterkoster[10][10];
 				for (int i=0; i<10; i++)
 					for (int j=0; j<10; j++)
 						slaterkoster[i][j] = 0.0;
+
 
 				//{
 				slaterkoster[0][0] =   boundaryCoeff * SSS;
@@ -1763,43 +1772,6 @@ int main() {
 							double Ejb = *E[beta] - Energy_shift;
 							double Eia = *E[alpha] - Energy_shift;
 							double Eig = *E[gamma] - Energy_shift;
-/*							switch (alpha) {
-								case 0: Eia = Es; break;
-								case 1: Eia = Ep; break;
-								case 2: Eia = Ep; break;
-								case 3: Eia = Ep; break;
-								case 4: Eia = Es_; break;
-								case 5: Eia = Ed; break;
-								case 6: Eia = Ed; break;
-								case 7: Eia = Ed; break;
-								case 8: Eia = Ed; break;
-								case 9: Eia = Ed; break;
-							}
-							switch (beta) {
-								case 0: Ejb = Es; break;
-								case 1: Ejb = Ep; break;
-								case 2: Ejb = Ep; break;
-								case 3: Ejb = Ep; break;
-								case 4: Ejb = Es_; break;
-								case 5: Ejb = Ed; break;
-								case 6: Ejb = Ed; break;
-								case 7: Ejb = Ed; break;
-								case 8: Ejb = Ed; break;
-								case 9: Ejb = Ed; break;
-							}
-							switch (gamma) {
-								case 0: Eig = Es; break;
-								case 1: Eig = Ep; break;
-								case 2: Eig = Ep; break;
-								case 3: Eig = Ep; break;
-								case 4: Eig = Es_; break;
-								case 5: Eig = Ed; break;
-								case 6: Eig = Ed; break;
-								case 7: Eig = Ed; break;
-								case 8: Eig = Ed; break;
-								case 9: Eig = Ed; break;
-							}
-*/
 							
 							Htmp[gamma*20*N + (currentPsi->d->n-1)*10 + alpha + 10*N] += (Htmp[gamma*20*N + (currentNeighbour->d->n-1)*10 + beta + 10*N]*Htmp[beta*20*N + (currentNeighbour->d->n-1)*10 + alpha + 10*N] - slaterkoster[gamma][beta]*slaterkoster[beta][alpha]) * (-Kjbia/(Ejb+Eia)/2.0 -Kigjb/(Eig+Ejb)/2.0 -Kigjb*Kjbia*(1.0/(Ejb+Eia)+1.0/(Eig+Ejb))/4.0);
 						}
@@ -1809,7 +1781,6 @@ int main() {
 
 				currentNeighbour = currentNeighbour->next;
 			}
-
 
 
 			for(long i=0; i<10; i++) {
@@ -1860,6 +1831,8 @@ int main() {
 			}
 
 #endif
+
+
 
 			currentPsi = currentPsi->next;
 		}
