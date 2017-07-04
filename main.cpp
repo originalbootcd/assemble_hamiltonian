@@ -21,7 +21,7 @@ FILE *in;
 FILE *print_h_out;
 
 const double a = 0.5431; //1
-const int n = 3; //20;
+const int n = 1; //20;
 const double volumeSize = n*a;
 const int N = n*n*n*8; //n*n*n*8;
 #define BOUNDARYCOEFF 1.0   //li
@@ -36,11 +36,11 @@ complex<double> li(0,1.0);
 #define BOYKIN2002
 #define BOYKIN2010
 #define UI
-#define CSRBINARY
-#define CSRTEXT
+//#define CSRBINARY
+//#define CSRTEXT
 
 
-{ //init TB parameters
+//{ //init TB parameters
 double SPS		= 0.0;
 double PDS		= 0.0;
 double S_PS		= 0.0;
@@ -101,126 +101,7 @@ double r3_P_D = 0.0;
 double r4_D_D = 0.0;
 
 double Energy_shift = 0.0;
-
-
-double* strain_constant_K[10][10];
-for (int i=0; i<10; i++)
-	for (int j=0; j<10; j++) {
-		strain_constant_K[i][j] = NULL;
-	}
-strain_constant_K[0][0] = &strain_constant_K_S_S;
-strain_constant_K[0][1] = &strain_constant_K_S_P;
-strain_constant_K[0][2] = &strain_constant_K_S_P;
-strain_constant_K[0][3] = &strain_constant_K_S_P;
-strain_constant_K[0][4] = &strain_constant_K_Sstar_S;
-strain_constant_K[0][5] = &strain_constant_K_S_D;
-strain_constant_K[0][6] = &strain_constant_K_S_D;
-strain_constant_K[0][7] = &strain_constant_K_S_D;
-strain_constant_K[0][8] = &strain_constant_K_S_D;
-strain_constant_K[0][9] = &strain_constant_K_S_D;
-
-strain_constant_K[1][0] = &strain_constant_K_S_P;
-strain_constant_K[1][1] = &strain_constant_K_P_P;
-strain_constant_K[1][2] = &strain_constant_K_P_P;
-strain_constant_K[1][3] = &strain_constant_K_P_P;
-strain_constant_K[1][4] = &strain_constant_K_Sstar_P;
-strain_constant_K[1][5] = &strain_constant_K_P_D;
-strain_constant_K[1][6] = &strain_constant_K_P_D;
-strain_constant_K[1][7] = &strain_constant_K_P_D;
-strain_constant_K[1][8] = &strain_constant_K_P_D;
-strain_constant_K[1][9] = &strain_constant_K_P_D;
-
-strain_constant_K[2][0] = &strain_constant_K_S_P;
-strain_constant_K[2][1] = &strain_constant_K_P_P;
-strain_constant_K[2][2] = &strain_constant_K_P_P;
-strain_constant_K[2][3] = &strain_constant_K_P_P;
-strain_constant_K[2][4] = &strain_constant_K_Sstar_P;
-strain_constant_K[2][5] = &strain_constant_K_P_D;
-strain_constant_K[2][6] = &strain_constant_K_P_D;
-strain_constant_K[2][7] = &strain_constant_K_P_D;
-strain_constant_K[2][8] = &strain_constant_K_P_D;
-strain_constant_K[2][9] = &strain_constant_K_P_D;
-
-strain_constant_K[3][0] = &strain_constant_K_S_P;
-strain_constant_K[3][1] = &strain_constant_K_P_P;
-strain_constant_K[3][2] = &strain_constant_K_P_P;
-strain_constant_K[3][3] = &strain_constant_K_P_P;
-strain_constant_K[3][4] = &strain_constant_K_Sstar_P;
-strain_constant_K[3][5] = &strain_constant_K_P_D;
-strain_constant_K[3][6] = &strain_constant_K_P_D;
-strain_constant_K[3][7] = &strain_constant_K_P_D;
-strain_constant_K[3][8] = &strain_constant_K_P_D;
-strain_constant_K[3][9] = &strain_constant_K_P_D;
-
-strain_constant_K[4][0] = &strain_constant_K_S_Sstar;
-strain_constant_K[4][1] = &strain_constant_K_Sstar_P;
-strain_constant_K[4][2] = &strain_constant_K_Sstar_P;
-strain_constant_K[4][3] = &strain_constant_K_Sstar_P;
-strain_constant_K[4][4] = &strain_constant_K_Sstar_Sstar;
-strain_constant_K[4][5] = &strain_constant_K_Sstar_D;
-strain_constant_K[4][6] = &strain_constant_K_Sstar_D;
-strain_constant_K[4][7] = &strain_constant_K_Sstar_D;
-strain_constant_K[4][8] = &strain_constant_K_Sstar_D;
-strain_constant_K[4][9] = &strain_constant_K_Sstar_D;
-
-
-
-strain_constant_K[5][0] = &strain_constant_K_S_D;
-strain_constant_K[5][1] = &strain_constant_K_P_D;
-strain_constant_K[5][2] = &strain_constant_K_P_D;
-strain_constant_K[5][3] = &strain_constant_K_P_D;
-strain_constant_K[5][4] = &strain_constant_K_Sstar_D;
-strain_constant_K[5][5] = &strain_constant_K_D_D;
-strain_constant_K[5][6] = &strain_constant_K_D_D;
-strain_constant_K[5][7] = &strain_constant_K_D_D;
-strain_constant_K[5][8] = &strain_constant_K_D_D;
-strain_constant_K[5][9] = &strain_constant_K_D_D;
-
-strain_constant_K[6][0] = &strain_constant_K_S_D;
-strain_constant_K[6][1] = &strain_constant_K_P_D;
-strain_constant_K[6][2] = &strain_constant_K_P_D;
-strain_constant_K[6][3] = &strain_constant_K_P_D;
-strain_constant_K[6][4] = &strain_constant_K_Sstar_D;
-strain_constant_K[6][5] = &strain_constant_K_D_D;
-strain_constant_K[6][6] = &strain_constant_K_D_D;
-strain_constant_K[6][7] = &strain_constant_K_D_D;
-strain_constant_K[6][8] = &strain_constant_K_D_D;
-strain_constant_K[6][9] = &strain_constant_K_D_D;
-
-strain_constant_K[7][0] = &strain_constant_K_S_D;
-strain_constant_K[7][1] = &strain_constant_K_P_D;
-strain_constant_K[7][2] = &strain_constant_K_P_D;
-strain_constant_K[7][3] = &strain_constant_K_P_D;
-strain_constant_K[7][4] = &strain_constant_K_Sstar_D;
-strain_constant_K[7][5] = &strain_constant_K_D_D;
-strain_constant_K[7][6] = &strain_constant_K_D_D;
-strain_constant_K[7][7] = &strain_constant_K_D_D;
-strain_constant_K[7][8] = &strain_constant_K_D_D;
-strain_constant_K[7][9] = &strain_constant_K_D_D;
-
-strain_constant_K[8][0] = &strain_constant_K_S_D;
-strain_constant_K[8][1] = &strain_constant_K_P_D;
-strain_constant_K[8][2] = &strain_constant_K_P_D;
-strain_constant_K[8][3] = &strain_constant_K_P_D;
-strain_constant_K[8][4] = &strain_constant_K_Sstar_D;
-strain_constant_K[8][5] = &strain_constant_K_D_D;
-strain_constant_K[8][6] = &strain_constant_K_D_D;
-strain_constant_K[8][7] = &strain_constant_K_D_D;
-strain_constant_K[8][8] = &strain_constant_K_D_D;
-strain_constant_K[8][9] = &strain_constant_K_D_D;
-
-strain_constant_K[9][0] = &strain_constant_K_S_D;
-strain_constant_K[9][1] = &strain_constant_K_P_D;
-strain_constant_K[9][2] = &strain_constant_K_P_D;
-strain_constant_K[9][3] = &strain_constant_K_P_D;
-strain_constant_K[9][4] = &strain_constant_K_Sstar_D;
-strain_constant_K[9][5] = &strain_constant_K_D_D;
-strain_constant_K[9][6] = &strain_constant_K_D_D;
-strain_constant_K[9][7] = &strain_constant_K_D_D;
-strain_constant_K[9][8] = &strain_constant_K_D_D;
-strain_constant_K[9][9] = &strain_constant_K_D_D;
-
-}
+//}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -243,8 +124,8 @@ int alex_fgets (char* s, int n, FILE* in) {
 	s[i]=0;
 	return f;
 }
-
-inline complex<double> slaterkoster(int alpha, Atom i, int beta, Atom j) {
+/*
+complex<double> slaterkoster(int alpha, List<Atom>* i, int beta, List<Atom>* j) {
 	V<double> v1(i->d->x, i->d->y, i->d->z);
 	V<double> v2;
 	v2.x = j->d->x;
@@ -448,8 +329,8 @@ inline complex<double> slaterkoster(int alpha, Atom i, int beta, Atom j) {
 	}
 
 }
-
-inline complex<double> operator *(double f, complex<double> c) {
+*/
+complex<double> operator *(double f, complex<double> c) {
 	complex<double> tmp(f*c.real(), f*c.imag());
 	return tmp;
 }
@@ -480,8 +361,140 @@ int main() {
 */
 //}
 
+//////////////////////////  INIT            /////////////////////////////////////////////////
+		//{
+		double* E[10];
+		E[0] = &Es;
+		E[1] = &Ep;
+		E[2] = &Ep;
+		E[3] = &Ep;
+		E[4] = &Es_;
+		E[5] = &Ed;
+		E[6] = &Ed;
+		E[7] = &Ed;
+		E[8] = &Ed;
+		E[9] = &Ed;
+
+		double* strain_constant_K[10][10];
+		for (int i=0; i<10; i++)
+			for (int j=0; j<10; j++) {
+				strain_constant_K[i][j] = NULL;
+			}
+		strain_constant_K[0][0] = &strain_constant_K_S_S;
+		strain_constant_K[0][1] = &strain_constant_K_S_P;
+		strain_constant_K[0][2] = &strain_constant_K_S_P;
+		strain_constant_K[0][3] = &strain_constant_K_S_P;
+		strain_constant_K[0][4] = &strain_constant_K_Sstar_S;
+		strain_constant_K[0][5] = &strain_constant_K_S_D;
+		strain_constant_K[0][6] = &strain_constant_K_S_D;
+		strain_constant_K[0][7] = &strain_constant_K_S_D;
+		strain_constant_K[0][8] = &strain_constant_K_S_D;
+		strain_constant_K[0][9] = &strain_constant_K_S_D;
+
+		strain_constant_K[1][0] = &strain_constant_K_S_P;
+		strain_constant_K[1][1] = &strain_constant_K_P_P;
+		strain_constant_K[1][2] = &strain_constant_K_P_P;
+		strain_constant_K[1][3] = &strain_constant_K_P_P;
+		strain_constant_K[1][4] = &strain_constant_K_Sstar_P;
+		strain_constant_K[1][5] = &strain_constant_K_P_D;
+		strain_constant_K[1][6] = &strain_constant_K_P_D;
+		strain_constant_K[1][7] = &strain_constant_K_P_D;
+		strain_constant_K[1][8] = &strain_constant_K_P_D;
+		strain_constant_K[1][9] = &strain_constant_K_P_D;
+
+		strain_constant_K[2][0] = &strain_constant_K_S_P;
+		strain_constant_K[2][1] = &strain_constant_K_P_P;
+		strain_constant_K[2][2] = &strain_constant_K_P_P;
+		strain_constant_K[2][3] = &strain_constant_K_P_P;
+		strain_constant_K[2][4] = &strain_constant_K_Sstar_P;
+		strain_constant_K[2][5] = &strain_constant_K_P_D;
+		strain_constant_K[2][6] = &strain_constant_K_P_D;
+		strain_constant_K[2][7] = &strain_constant_K_P_D;
+		strain_constant_K[2][8] = &strain_constant_K_P_D;
+		strain_constant_K[2][9] = &strain_constant_K_P_D;
+
+		strain_constant_K[3][0] = &strain_constant_K_S_P;
+		strain_constant_K[3][1] = &strain_constant_K_P_P;
+		strain_constant_K[3][2] = &strain_constant_K_P_P;
+		strain_constant_K[3][3] = &strain_constant_K_P_P;
+		strain_constant_K[3][4] = &strain_constant_K_Sstar_P;
+		strain_constant_K[3][5] = &strain_constant_K_P_D;
+		strain_constant_K[3][6] = &strain_constant_K_P_D;
+		strain_constant_K[3][7] = &strain_constant_K_P_D;
+		strain_constant_K[3][8] = &strain_constant_K_P_D;
+		strain_constant_K[3][9] = &strain_constant_K_P_D;
+
+		strain_constant_K[4][0] = &strain_constant_K_S_Sstar;
+		strain_constant_K[4][1] = &strain_constant_K_Sstar_P;
+		strain_constant_K[4][2] = &strain_constant_K_Sstar_P;
+		strain_constant_K[4][3] = &strain_constant_K_Sstar_P;
+		strain_constant_K[4][4] = &strain_constant_K_Sstar_Sstar;
+		strain_constant_K[4][5] = &strain_constant_K_Sstar_D;
+		strain_constant_K[4][6] = &strain_constant_K_Sstar_D;
+		strain_constant_K[4][7] = &strain_constant_K_Sstar_D;
+		strain_constant_K[4][8] = &strain_constant_K_Sstar_D;
+		strain_constant_K[4][9] = &strain_constant_K_Sstar_D;
+
+
+
+		strain_constant_K[5][0] = &strain_constant_K_S_D;
+		strain_constant_K[5][1] = &strain_constant_K_P_D;
+		strain_constant_K[5][2] = &strain_constant_K_P_D;
+		strain_constant_K[5][3] = &strain_constant_K_P_D;
+		strain_constant_K[5][4] = &strain_constant_K_Sstar_D;
+		strain_constant_K[5][5] = &strain_constant_K_D_D;
+		strain_constant_K[5][6] = &strain_constant_K_D_D;
+		strain_constant_K[5][7] = &strain_constant_K_D_D;
+		strain_constant_K[5][8] = &strain_constant_K_D_D;
+		strain_constant_K[5][9] = &strain_constant_K_D_D;
+
+		strain_constant_K[6][0] = &strain_constant_K_S_D;
+		strain_constant_K[6][1] = &strain_constant_K_P_D;
+		strain_constant_K[6][2] = &strain_constant_K_P_D;
+		strain_constant_K[6][3] = &strain_constant_K_P_D;
+		strain_constant_K[6][4] = &strain_constant_K_Sstar_D;
+		strain_constant_K[6][5] = &strain_constant_K_D_D;
+		strain_constant_K[6][6] = &strain_constant_K_D_D;
+		strain_constant_K[6][7] = &strain_constant_K_D_D;
+		strain_constant_K[6][8] = &strain_constant_K_D_D;
+		strain_constant_K[6][9] = &strain_constant_K_D_D;
+
+		strain_constant_K[7][0] = &strain_constant_K_S_D;
+		strain_constant_K[7][1] = &strain_constant_K_P_D;
+		strain_constant_K[7][2] = &strain_constant_K_P_D;
+		strain_constant_K[7][3] = &strain_constant_K_P_D;
+		strain_constant_K[7][4] = &strain_constant_K_Sstar_D;
+		strain_constant_K[7][5] = &strain_constant_K_D_D;
+		strain_constant_K[7][6] = &strain_constant_K_D_D;
+		strain_constant_K[7][7] = &strain_constant_K_D_D;
+		strain_constant_K[7][8] = &strain_constant_K_D_D;
+		strain_constant_K[7][9] = &strain_constant_K_D_D;
+
+		strain_constant_K[8][0] = &strain_constant_K_S_D;
+		strain_constant_K[8][1] = &strain_constant_K_P_D;
+		strain_constant_K[8][2] = &strain_constant_K_P_D;
+		strain_constant_K[8][3] = &strain_constant_K_P_D;
+		strain_constant_K[8][4] = &strain_constant_K_Sstar_D;
+		strain_constant_K[8][5] = &strain_constant_K_D_D;
+		strain_constant_K[8][6] = &strain_constant_K_D_D;
+		strain_constant_K[8][7] = &strain_constant_K_D_D;
+		strain_constant_K[8][8] = &strain_constant_K_D_D;
+		strain_constant_K[8][9] = &strain_constant_K_D_D;
+
+		strain_constant_K[9][0] = &strain_constant_K_S_D;
+		strain_constant_K[9][1] = &strain_constant_K_P_D;
+		strain_constant_K[9][2] = &strain_constant_K_P_D;
+		strain_constant_K[9][3] = &strain_constant_K_P_D;
+		strain_constant_K[9][4] = &strain_constant_K_Sstar_D;
+		strain_constant_K[9][5] = &strain_constant_K_D_D;
+		strain_constant_K[9][6] = &strain_constant_K_D_D;
+		strain_constant_K[9][7] = &strain_constant_K_D_D;
+		strain_constant_K[9][8] = &strain_constant_K_D_D;
+		strain_constant_K[9][9] = &strain_constant_K_D_D;
+
+		//}
 //////////////////////////  ATOMS INIT      /////////////////////////////////////////////////
-		{
+		//{
 		List<Atom> *current = NULL;
 
 		WaveFunction psi;
@@ -555,8 +568,18 @@ int main() {
 			}
 		//cout << currInit << endl;
 		}
-		}
+		//}
 //////////////////////////  DEFORMATION     /////////////////////////////////////////////////
+		//{
+		current = psi.atoms;
+		while (current) {
+			current->d->dx = 0.01*current->d->x;
+			current->d->dy = 0.01*current->d->y;
+			current->d->dz = 0.01*current->d->z;
+			current = current->next;
+		}
+
+
 /*		char* strain_filename = "./../QD_strain.xyz";
 		in = fopen(strain_filename, "r");
 		if (in==NULL) fprintf(stderr, "error: can't open the file %s for reading.\n", strain_filename), exit(1);
@@ -590,8 +613,9 @@ int main() {
 		fclose(in);
 
 */
+		//}
 //////////////////////////  NEIGHBOURS      /////////////////////////////////////////////////
-		{
+		//{
 		#ifdef UI
 			cout << "linking atom neighbours" << endl;
 		#endif
@@ -635,9 +659,9 @@ int main() {
 		#ifdef UI
 		cout << endl;
 		#endif
-		}
+		//}
 //////////////////////////  CSR init        /////////////////////////////////////////////////
-		{
+		//{
 		#ifdef UI
 		cout << "initializing CSR" << endl;
 		#endif
@@ -647,13 +671,18 @@ int main() {
 		//long CSRsize = 20*N + 45*N             + 4*(100)*N   +   6*N;     //UCSR
 		long CSRsize = 20*N                      + (400-19)*N   +   6*N;
 	#else
-		long CSRsize = 20*N                      + 4*(100)*2*N   +   6*2*N; //CSR
+		#ifdef BOYKIN2002
+			long CSRsize = 2*100*N                   + 4*(100)*2*N   +   6*2*N; //CSR
+		#else
+			long CSRsize = 20*N                      + 4*(100)*2*N   +   6*2*N; //CSR
+		#endif
 	#endif
 #else
 		long CSRsize = 20*N + 45*N             + 4*(100)*N;		//UCSR
 #endif
+
 		#ifdef UI
-		cout << CSRsize << " nonzero elements" << endl;
+		cout << "init " << CSRsize << " nonzero elements" << endl;
 		#endif
 		long currentCSRval = 0;
 
@@ -667,9 +696,9 @@ int main() {
 
 		/////////////////////////////////////////////////////////////////////////////////////
 		complex<double> *Htmp = (complex<double>*)malloc((10 * 20*N)*sizeof(complex<double>));
-		}
+		//}
 //////////////////////////  spin plus       /////////////////////////////////////////////////
-		{
+		//{
 		#ifdef UI
 		cout << "spin plus" << endl;
 		#endif
@@ -863,20 +892,23 @@ int main() {
 				complex<double> boundaryCoeff(1.0, 0.0);
 				V<double> v12;
 				v12 = v2 - v1;
-				if (fabs(v12.x) > volumeSize/2.0) {
-					v12.x -= volumeSize*v12.x/fabs(v12.x);
+				double volumeSizeX = volumeSize + 0.01*volumeSize;
+				double volumeSizeY = volumeSize + 0.01*volumeSize;
+				double volumeSizeZ = volumeSize + 0.01*volumeSize;
+				if (fabs(v12.x) > volumeSizeX/2.0) {
+					v12.x -= volumeSizeX*v12.x/fabs(v12.x);
 					boundaryCoeff = BOUNDARYCOEFF;
 				}
-				if (fabs(v12.y) > volumeSize/2.0)
-					v12.y -= volumeSize*v12.y/fabs(v12.y);
-				if (fabs(v12.z) > volumeSize/2.0)
-					v12.z -= volumeSize*v12.z/fabs(v12.z);
+				if (fabs(v12.y) > volumeSizeY/2.0)
+					v12.y -= volumeSizeY*v12.y/fabs(v12.y);
+				if (fabs(v12.z) > volumeSizeZ/2.0)
+					v12.z -= volumeSizeZ*v12.z/fabs(v12.z);
 				v12 = (1.0/sqrt(v12*v12))*v12;
 				double l = v12.x;
 				double m = v12.y;
 				double n = v12.z;
 
-				{
+				//{
 				Htmp[0*20*N + (currentNeighbour->d->n-1)*10    ] =   boundaryCoeff * SSS;
 				Htmp[0*20*N + (currentNeighbour->d->n-1)*10 + 1] = - boundaryCoeff * l * SPS;
 				Htmp[0*20*N + (currentNeighbour->d->n-1)*10 + 2] = - boundaryCoeff * m * SPS;
@@ -988,30 +1020,35 @@ int main() {
 				Htmp[9*20*N + (currentNeighbour->d->n-1)*10 + 7] =   boundaryCoeff * (sqrt(3.0)*l*n*(n*n-0.5*(l*l+m*m))*DDS + sqrt(3.0)*l*n*(l*l+m*m-n*n)*DDP - sqrt(3.0)/2.0*l*n*(l*l+m*m)*DDD);
 				Htmp[9*20*N + (currentNeighbour->d->n-1)*10 + 8] =   boundaryCoeff * (sqrt(3.0)/2.0*(l*l-m*m)*(n*n-0.5*(l*l+m*m))*DDS + sqrt(3.0)*n*n*(m*m-l*l)*DDP + sqrt(3.0)/4.0*(1.0+n*n)*(l*l-m*m)*DDD);
 				Htmp[9*20*N + (currentNeighbour->d->n-1)*10 + 9] =   boundaryCoeff * ((n*n-0.5*(l*l+m*m))*(n*n-0.5*(l*l+m*m))*DDS + 3.0*n*n*(l*l+m*m)*DDP + 0.75*(l*l+m*m)*(l*l+m*m)*DDD);
-				}
+				//}
 
 
 
 
 #ifdef BOYKIN2002
-				v1.x = currentPsi->d->x;
-				v1.y = currentPsi->d->y;
-				v1.z = currentPsi->d->z;
-				v2.x = currentNeighbour->d->x;
-				v2.y = currentNeighbour->d->y;
-				v2.z = currentNeighbour->d->z;
+				V<double> v1unstrained;
+				v1unstrained.x = currentPsi->d->x;
+				v1unstrained.y = currentPsi->d->y;
+				v1unstrained.z = currentPsi->d->z;
+				V<double> v2unstrained;
+				v2unstrained.x = currentNeighbour->d->x;
+				v2unstrained.y = currentNeighbour->d->y;
+				v2unstrained.z = currentNeighbour->d->z;
 				boundaryCoeff = 1.0;
-				v12 = v2 - v1;
-				if (fabs(v12.x) > volumeSize/2.0) {
-					v12.x -= volumeSize*v12.x/fabs(v12.x);
+				V<double> v12unstrained;
+				v12unstrained = v2unstrained - v1unstrained;
+				if (fabs(v12unstrained.x) > volumeSize/2.0) {
+					v12unstrained.x -= volumeSize*v12unstrained.x/fabs(v12unstrained.x);
 					boundaryCoeff = BOUNDARYCOEFF;
 				}
-				if (fabs(v12.y) > volumeSize/2.0)
-					v12.y -= volumeSize*v12.y/fabs(v12.y);
-				v12 = (1.0/sqrt(v12*v12))*v12;
-				l = v12.x;				
-				m = v12.y;
-				n = v12.z;
+				if (fabs(v12unstrained.y) > volumeSize/2.0)
+					v12unstrained.y -= volumeSize*v12unstrained.y/fabs(v12unstrained.y);
+				if (fabs(v12unstrained.z) > volumeSize/2.0)
+					v12unstrained.z -= volumeSize*v12unstrained.z/fabs(v12unstrained.z);
+				v12unstrained = (1.0/sqrt(v12unstrained*v12unstrained))*v12unstrained;
+				l = v12unstrained.x;
+				m = v12unstrained.y;
+				n = v12unstrained.z;
 
 				complex<double> slaterkoster[10][10];
 				for (int i=0; i<10; i++)
@@ -1019,7 +1056,7 @@ int main() {
 						slaterkoster[i][j] = 0.0;
 
 
-				{
+				//{
 				slaterkoster[0][0] =   boundaryCoeff * SSS;
 				slaterkoster[0][1] = - boundaryCoeff * l * SPS;
 				slaterkoster[0][2] = - boundaryCoeff * m * SPS;
@@ -1131,17 +1168,17 @@ int main() {
 				slaterkoster[9][7] =   boundaryCoeff * (sqrt(3.0)*l*n*(n*n-0.5*(l*l+m*m))*DDS + sqrt(3.0)*l*n*(l*l+m*m-n*n)*DDP - sqrt(3.0)/2.0*l*n*(l*l+m*m)*DDD);
 				slaterkoster[9][8] =   boundaryCoeff * (sqrt(3.0)/2.0*(l*l-m*m)*(n*n-0.5*(l*l+m*m))*DDS + sqrt(3.0)*n*n*(m*m-l*l)*DDP + sqrt(3.0)/4.0*(1.0+n*n)*(l*l-m*m)*DDD);
 				slaterkoster[9][9] =   boundaryCoeff * ((n*n-0.5*(l*l+m*m))*(n*n-0.5*(l*l+m*m))*DDS + 3.0*n*n*(l*l+m*m)*DDP + 0.75*(l*l+m*m)*(l*l+m*m)*DDD);
-				}
+				//}
 
 				for (int gamma=0; gamma<10; gamma++)
 					for (int alpha=0; alpha<10; alpha++) {
 						for (int beta=0; beta<10; beta++) {
 							double Kjbia = *strain_constant_K[beta][alpha];
 							double Kigjb = *strain_constant_K[gamma][beta];
-							double Ejb;
-							double Eia;
-							double Eig;
-							switch (alpha) {
+							double Ejb = *E[beta] - Energy_shift;
+							double Eia = *E[alpha] - Energy_shift;
+							double Eig = *E[gamma] - Energy_shift;
+/*							switch (alpha) {
 								case 0: Eia = Es; break;
 								case 1: Eia = Ep; break;
 								case 2: Eia = Ep; break;
@@ -1177,6 +1214,7 @@ int main() {
 								case 8: Eig = Ed; break;
 								case 9: Eig = Ed; break;
 							}
+*/
 							
 							Htmp[gamma*20*N + (currentPsi->d->n-1)*10 + alpha] += (Htmp[gamma*20*N + (currentNeighbour->d->n-1)*10 + beta]*Htmp[beta*20*N + (currentNeighbour->d->n-1)*10 + alpha] - slaterkoster[gamma][beta]*slaterkoster[beta][alpha]) * (-Kjbia/(Ejb+Eia)/2.0 -Kigjb/(Eig+Ejb)/2.0 -Kigjb*Kjbia*(1.0/(Ejb+Eia)+1.0/(Eig+Ejb))/4.0);
 						}
@@ -1243,9 +1281,9 @@ int main() {
 		#ifdef UI
 		cout << endl;
 		#endif
-		}
+		//}
 //////////////////////////  spin minus      /////////////////////////////////////////////////
-		{
+		//{
 		currentPsi = psi.atoms;
 		#ifdef UI
 		cout << "spin minus" << endl;
@@ -1440,21 +1478,24 @@ int main() {
 				complex<double> boundaryCoeff(1.0, 0.0);
 				V<double> v12;
 				v12 = v2 - v1;
-				if (fabs(v12.x) > volumeSize/2.0) {
-					v12.x -= volumeSize*v12.x/fabs(v12.x);
+				double volumeSizeX = volumeSize + 0.01*volumeSize;
+				double volumeSizeY = volumeSize + 0.01*volumeSize;
+				double volumeSizeZ = volumeSize + 0.01*volumeSize;
+				if (fabs(v12.x) > volumeSizeX/2.0) {
+					v12.x -= volumeSizeX*v12.x/fabs(v12.x);
 					boundaryCoeff = BOUNDARYCOEFF;
 				}
-				if (fabs(v12.y) > volumeSize/2.0)
-					v12.y -= volumeSize*v12.y/fabs(v12.y);
-				if (fabs(v12.z) > volumeSize/2.0)
-					v12.z -= volumeSize*v12.z/fabs(v12.z);
+				if (fabs(v12.y) > volumeSizeY/2.0)
+					v12.y -= volumeSizeY*v12.y/fabs(v12.y);
+				if (fabs(v12.z) > volumeSizeZ/2.0)
+					v12.z -= volumeSizeZ*v12.z/fabs(v12.z);
 				v12 = (1.0/sqrt(v12*v12))*v12;
 				double l = v12.x;
 				double m = v12.y;
 				double n = v12.z;
 
 
-				{
+				//{
 				Htmp[0*20*N + (currentNeighbour->d->n-1)*10     + 10*N] =   boundaryCoeff * SSS;
 				Htmp[0*20*N + (currentNeighbour->d->n-1)*10 + 1 + 10*N] = - boundaryCoeff * l * SPS;
 				Htmp[0*20*N + (currentNeighbour->d->n-1)*10 + 2 + 10*N] = - boundaryCoeff * m * SPS;
@@ -1566,36 +1607,41 @@ int main() {
 				Htmp[9*20*N + (currentNeighbour->d->n-1)*10 + 7 + 10*N] =   boundaryCoeff * (sqrt(3.0)*l*n*(n*n-0.5*(l*l+m*m))*DDS + sqrt(3.0)*l*n*(l*l+m*m-n*n)*DDP - sqrt(3.0)/2.0*l*n*(l*l+m*m)*DDD);
 				Htmp[9*20*N + (currentNeighbour->d->n-1)*10 + 8 + 10*N] =   boundaryCoeff * (sqrt(3.0)/2.0*(l*l-m*m)*(n*n-0.5*(l*l+m*m))*DDS + sqrt(3.0)*n*n*(m*m-l*l)*DDP + sqrt(3.0)/4.0*(1.0+n*n)*(l*l-m*m)*DDD);
 				Htmp[9*20*N + (currentNeighbour->d->n-1)*10 + 9 + 10*N] =   boundaryCoeff * ((n*n-0.5*(l*l+m*m))*(n*n-0.5*(l*l+m*m))*DDS + 3.0*n*n*(l*l+m*m)*DDP + 0.75*(l*l+m*m)*(l*l+m*m)*DDD);
-				}
+				//}
 
 
 
 #ifdef BOYKIN2002
-				v1.x = currentPsi->d->x;
-				v1.y = currentPsi->d->y;
-				v1.z = currentPsi->d->z;
-				v2.x = currentNeighbour->d->x;
-				v2.y = currentNeighbour->d->y;
-				v2.z = currentNeighbour->d->z;
+				V<double> v1unstrained;
+				v1unstrained.x = currentPsi->d->x;
+				v1unstrained.y = currentPsi->d->y;
+				v1unstrained.z = currentPsi->d->z;
+				V<double> v2unstrained;
+				v2unstrained.x = currentNeighbour->d->x;
+				v2unstrained.y = currentNeighbour->d->y;
+				v2unstrained.z = currentNeighbour->d->z;
 				boundaryCoeff = 1.0;
-				v12 = v2 - v1;
-				if (fabs(v12.x) > volumeSize/2.0) {
-					v12.x -= volumeSize*v12.x/fabs(v12.x);
+				V<double> v12unstrained;
+				v12unstrained = v2unstrained - v1unstrained;
+				if (fabs(v12unstrained.x) > volumeSize/2.0) {
+					v12unstrained.x -= volumeSize*v12unstrained.x/fabs(v12unstrained.x);
 					boundaryCoeff = BOUNDARYCOEFF;
 				}
-				if (fabs(v12.y) > volumeSize/2.0)
-					v12.y -= volumeSize*v12.y/fabs(v12.y);
-				v12 = (1.0/sqrt(v12*v12))*v12;
-				l = v12.x;				
-				m = v12.y;
-				n = v12.z;
+				if (fabs(v12unstrained.y) > volumeSize/2.0)
+					v12unstrained.y -= volumeSize*v12unstrained.y/fabs(v12unstrained.y);
+				if (fabs(v12unstrained.z) > volumeSize/2.0)
+					v12unstrained.z -= volumeSize*v12unstrained.z/fabs(v12unstrained.z);
+				v12unstrained = (1.0/sqrt(v12unstrained*v12unstrained))*v12unstrained;
+				l = v12unstrained.x;				
+				m = v12unstrained.y;
+				n = v12unstrained.z;
 				
 				complex<double> slaterkoster[10][10];
 				for (int i=0; i<10; i++)
 					for (int j=0; j<10; j++)
 						slaterkoster[i][j] = 0.0;
 
-				{
+				//{
 				slaterkoster[0][0] =   boundaryCoeff * SSS;
 				slaterkoster[0][1] = - boundaryCoeff * l * SPS;
 				slaterkoster[0][2] = - boundaryCoeff * m * SPS;
@@ -1707,17 +1753,17 @@ int main() {
 				slaterkoster[9][7] =   boundaryCoeff * (sqrt(3.0)*l*n*(n*n-0.5*(l*l+m*m))*DDS + sqrt(3.0)*l*n*(l*l+m*m-n*n)*DDP - sqrt(3.0)/2.0*l*n*(l*l+m*m)*DDD);
 				slaterkoster[9][8] =   boundaryCoeff * (sqrt(3.0)/2.0*(l*l-m*m)*(n*n-0.5*(l*l+m*m))*DDS + sqrt(3.0)*n*n*(m*m-l*l)*DDP + sqrt(3.0)/4.0*(1.0+n*n)*(l*l-m*m)*DDD);
 				slaterkoster[9][9] =   boundaryCoeff * ((n*n-0.5*(l*l+m*m))*(n*n-0.5*(l*l+m*m))*DDS + 3.0*n*n*(l*l+m*m)*DDP + 0.75*(l*l+m*m)*(l*l+m*m)*DDD);
-				}
+				//}
 
 				for (int gamma=0; gamma<10; gamma++)
 					for (int alpha=0; alpha<10; alpha++) {
 						for (int beta=0; beta<10; beta++) {
 							double Kjbia = *strain_constant_K[beta][alpha];
 							double Kigjb = *strain_constant_K[gamma][beta];
-							double Ejb;
-							double Eia;
-							double Eig;
-							switch (alpha) {
+							double Ejb = *E[beta] - Energy_shift;
+							double Eia = *E[alpha] - Energy_shift;
+							double Eig = *E[gamma] - Energy_shift;
+/*							switch (alpha) {
 								case 0: Eia = Es; break;
 								case 1: Eia = Ep; break;
 								case 2: Eia = Ep; break;
@@ -1753,6 +1799,7 @@ int main() {
 								case 8: Eig = Ed; break;
 								case 9: Eig = Ed; break;
 							}
+*/
 							
 							Htmp[gamma*20*N + (currentPsi->d->n-1)*10 + alpha + 10*N] += (Htmp[gamma*20*N + (currentNeighbour->d->n-1)*10 + beta + 10*N]*Htmp[beta*20*N + (currentNeighbour->d->n-1)*10 + alpha + 10*N] - slaterkoster[gamma][beta]*slaterkoster[beta][alpha]) * (-Kjbia/(Ejb+Eia)/2.0 -Kigjb/(Eig+Ejb)/2.0 -Kigjb*Kjbia*(1.0/(Ejb+Eia)+1.0/(Eig+Ejb))/4.0);
 						}
@@ -1822,7 +1869,7 @@ int main() {
 		#ifdef UI
 		cout << endl;
 		#endif
-		}
+		//}
 //////////////////////////  HERMITIAN   /////////////////////////////////////////////////////
 #ifdef HERMITIAN_TEST
 #ifdef CSR	
@@ -1854,7 +1901,7 @@ int main() {
 #endif
 #endif
 //////////////////////////  OUTPUT CSR  /////////////////////////////////////////////////////
-		{
+		//{
 		char filename[100];
 		sprintf(filename, "../FCSR20x%i_%i", N, currentCSRval);
 		char filename_out[100];
@@ -1902,17 +1949,21 @@ int main() {
 		fwrite(CSRcols, sizeof(CSRcols[0]), currentCSRval, out);
 		fclose(out);
 #endif
-		}
+		//}
 //////////////////////////  FINISH      /////////////////////////////////////////////////////
-		{
+		//{
 		#ifdef UI
 		cout << "finished, freing memory" << endl;
 		#endif
+		for (int i=0; i<10; i++)
+			for (int j=0; j<10; j++) {
+				strain_constant_K[i][j] = NULL;
+			}
 		free(Htmp);
 		free(CSRval);
 		free(CSRrows);
 		free(CSRcols);
-		}
+		//}
 
 //	}          //k forcircle
 
