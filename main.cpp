@@ -1,18 +1,21 @@
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
-using namespace std;
 #include <string>
 #include <complex>
 #define PI 3.141592653589793
 #include <cmath>
-
-
+using namespace std;
 #include "myvector.h"
 #include "mylist.h"
 #include "matrixAlgebra.h"
 #include "atom.h"
+#include <libconfig.h++>
+using namespace libconfig;
 
 
 #define bufsize 1000
@@ -34,11 +37,15 @@ complex<double> li(0,1.0);
 #define HERMITIAN_TEST
 #define SO
 #define BOYKIN2002
-#define BOYKIN2010
+//#define BOYKIN2010
 #define UI
-//#define CSRBINARY
-//#define CSRTEXT
+#define CSRBINARY
+#define CSRTEXT
 
+#define BANDSTRUCTURE
+#define DEFORMX 0.0
+#define DEFORMY 0.0
+#define DEFORMZ 0.0
 
 //{ //init TB parameters
 double SPS		= 0.0;
@@ -336,30 +343,56 @@ complex<double> operator *(double f, complex<double> c) {
 }
 
 
-int main() {
+int main(int argc, char * argv[]) {
 
-#ifdef PRINT_H
-	const char* print_h_filename = "../CSR.dat";
-	print_h_out = fopen(print_h_filename, "w");  if (print_h_out==NULL) fprintf(stderr,"Error!\ncan't open the file %s for writing.\n",print_h_filename),exit(0);
-#endif
+	Config cfg;
+	try {
+		cfg.readFile("init.cfg");
+	}
+	catch(const FileIOException &fioex) {
+		std::cerr << "I/O error while reading file." << std::endl;
+		return(EXIT_FAILURE);
+	}
+	catch(const ParseException &pex) {
+		std::cerr << "Parse error at " << pex.getFile() << ":" << pex.getLine() << " - " << pex.getError() << std::endl;
+		return(EXIT_FAILURE);
+	}
+
+	if (argc==4) {
+		k.x = stof(argv[1], NULL);
+		k.y = stof(argv[2], NULL);
+		k.z = stof(argv[3], NULL);
+	}
+	else if (argc!=1) { cout << "wrong argc, argv" << endl; exit(1); }
 
 
-//{ //k forcircle
-//	for(k.x=-3.3; k.x<=6.3; k.x+=0.2) {
-/*	for(k.x=4.76-0.1; k.x<=4.76+0.1; k.x+=0.2) {
+#ifdef BANDSTRUCTURE
+	for(k.x=-3.3; k.x<=6.3; k.x+=0.05) {
+//	for(k.x=4.76-0.1; k.x<=4.76+0.1; k.x+=0.2) { /// delta x-mass
 		k.y = k.x;
 		k.z = k.x;	
 		if(k.x > 0) {
 			k.y = 0.0;
 			k.z = 0.0;
 		}
-*/
 
-/*
+
+/*       ///// delta y-mass
 	k.x=4.76;
 	for(k.y=-1.0; k.y<=1.0; k.y+=0.2) {
 */
-//}
+#endif
+
+
+#ifdef PRINT_H
+	try {
+		const char* print_h_filename = cfg.lookup("print_h_filename");
+		print_h_out = fopen(print_h_filename, "w");  if (print_h_out==NULL) fprintf(stderr,"Error!\ncan't open the file %s for writing.\n",print_h_filename),exit(0);
+	}
+	catch(const SettingNotFoundException &nfex) {
+		cerr << "No print_h_filename" << endl;
+	}
+#endif
 
 //////////////////////////  INIT            /////////////////////////////////////////////////
 		//{
@@ -573,9 +606,9 @@ int main() {
 		//{
 		current = psi.atoms;
 		while (current) {
-			current->d->dx = 0.01*current->d->x;
-			current->d->dy = 0.01*current->d->y;
-			current->d->dz = 0.01*current->d->z;
+			current->d->dx = DEFORMX*current->d->x;
+			current->d->dy = DEFORMY*current->d->y;
+			current->d->dz = DEFORMZ*current->d->z;
 			current = current->next;
 		}
 
@@ -892,17 +925,36 @@ int main() {
 				complex<double> boundaryCoeff(1.0, 0.0);
 				V<double> v12;
 				v12 = v2 - v1;
-				double volumeSizeX = volumeSize + 0.01*volumeSize;
-				double volumeSizeY = volumeSize + 0.01*volumeSize;
-				double volumeSizeZ = volumeSize + 0.01*volumeSize;
-				if (fabs(v12.x) > volumeSizeX/2.0) {
-					v12.x -= volumeSizeX*v12.x/fabs(v12.x);
-					boundaryCoeff = BOUNDARYCOEFF;
-				}
-				if (fabs(v12.y) > volumeSizeY/2.0)
-					v12.y -= volumeSizeY*v12.y/fabs(v12.y);
-				if (fabs(v12.z) > volumeSizeZ/2.0)
-					v12.z -= volumeSizeZ*v12.z/fabs(v12.z);
+				double volumeSizeX = volumeSize + DEFORMX*volumeSize;
+				double volumeSizeY = volumeSize + DEFORMY*volumeSize;
+				double volumeSizeZ = volumeSize + DEFORMZ*volumeSize;
+
+				#ifdef BANDSTRUCTURE
+					double kL = 0;
+					if (fabs(v12.x) > volumeSizeX/2.0) {
+						v12.x -= volumeSizeX*v12.x/fabs(v12.x);
+						kL += k.x*volumeSizeX*(v12.x/fabs(v12.x));
+					}
+					if (fabs(v12.y) > volumeSizeY/2.0) {
+						v12.y -= volumeSizeY*v12.y/fabs(v12.y);
+						kL += k.y*volumeSizeY*(v12.y/fabs(v12.y));
+					}
+					if (fabs(v12.z) > volumeSizeZ/2.0) {
+						v12.z -= volumeSizeZ*v12.z/fabs(v12.z);
+						kL += k.z*volumeSizeZ*(v12.z/fabs(v12.z));
+					}
+					complex<double> ikL(0,kL);
+					boundaryCoeff = exp(ikL);
+				#else
+					if (fabs(v12.x) > volumeSizeX/2.0) {
+						v12.x -= volumeSizeX*v12.x/fabs(v12.x);
+						boundaryCoeff = BOUNDARYCOEFF;
+					}
+					if (fabs(v12.y) > volumeSizeY/2.0)
+						v12.y -= volumeSizeY*v12.y/fabs(v12.y);
+					if (fabs(v12.z) > volumeSizeZ/2.0)
+						v12.z -= volumeSizeZ*v12.z/fabs(v12.z);
+				#endif
 				V<double> v12norm = (1.0/sqrt(v12*v12))*v12;
 				double l = v12norm.x;
 				double m = v12norm.y;
@@ -919,6 +971,7 @@ int main() {
 				V<double> v12unstrained;
 				v12unstrained = v2unstrained - v1unstrained;
 
+				// calculate d0
 				if (fabs(v12unstrained.x) > volumeSize/2.0)
 					v12unstrained.x -= volumeSize*v12unstrained.x/fabs(v12unstrained.x);
 				if (fabs(v12unstrained.y) > volumeSize/2.0)
@@ -1066,9 +1119,29 @@ int main() {
 
 
 #ifdef BOYKIN2002
-				boundaryCoeff = 1.0;
-				if (fabs(v12unstrained.x) > volumeSize/2.0)
-					boundaryCoeff = BOUNDARYCOEFF;
+				v12unstrained = v2unstrained - v1unstrained;
+				#ifdef BANDSTRUCTURE
+					kL = 0;
+					if (fabs(v12unstrained.x) > volumeSize/2.0) {
+						v12unstrained.x -= volumeSize*v12unstrained.x/fabs(v12unstrained.x);
+						kL += k.x*volumeSize*(v12unstrained.x/fabs(v12unstrained.x));
+					}
+					if (fabs(v12unstrained.y) > volumeSize/2.0) {
+						v12unstrained.y -= volumeSize*v12unstrained.y/fabs(v12unstrained.y);
+						kL += k.y*volumeSize*(v12unstrained.y/fabs(v12unstrained.y));
+					}
+					if (fabs(v12unstrained.z) > volumeSize/2.0) {
+						v12unstrained.z -= volumeSize*v12unstrained.z/fabs(v12unstrained.z);
+						kL += k.z*volumeSize*(v12unstrained.z/fabs(v12unstrained.z));
+					}
+					ikL = li*kL;
+					boundaryCoeff = exp(ikL);
+				#else
+					boundaryCoeff = 1.0;
+					if (fabs(v12unstrained.x) > volumeSize/2.0)
+						boundaryCoeff = BOUNDARYCOEFF;
+				#endif
+				// v12unstrainedNorm already calculated (but v12unstrained is incorrect here)
 				l = v12unstrainedNorm.x;
 				m = v12unstrainedNorm.y;
 				n = v12unstrainedNorm.z;
@@ -1463,17 +1536,36 @@ int main() {
 				complex<double> boundaryCoeff(1.0, 0.0);
 				V<double> v12;
 				v12 = v2 - v1;
-				double volumeSizeX = volumeSize + 0.01*volumeSize;
-				double volumeSizeY = volumeSize + 0.01*volumeSize;
-				double volumeSizeZ = volumeSize + 0.01*volumeSize;
-				if (fabs(v12.x) > volumeSizeX/2.0) {
-					v12.x -= volumeSizeX*v12.x/fabs(v12.x);
-					boundaryCoeff = BOUNDARYCOEFF;
-				}
-				if (fabs(v12.y) > volumeSizeY/2.0)
-					v12.y -= volumeSizeY*v12.y/fabs(v12.y);
-				if (fabs(v12.z) > volumeSizeZ/2.0)
-					v12.z -= volumeSizeZ*v12.z/fabs(v12.z);
+				double volumeSizeX = volumeSize + DEFORMX*volumeSize;
+				double volumeSizeY = volumeSize + DEFORMY*volumeSize;
+				double volumeSizeZ = volumeSize + DEFORMZ*volumeSize;
+
+				#ifdef BANDSTRUCTURE
+					double kL = 0;
+					if (fabs(v12.x) > volumeSizeX/2.0) {
+						v12.x -= volumeSizeX*v12.x/fabs(v12.x);
+						kL += k.x*volumeSizeX*(v12.x/fabs(v12.x));
+					}
+					if (fabs(v12.y) > volumeSizeY/2.0) {
+						v12.y -= volumeSizeY*v12.y/fabs(v12.y);
+						kL += k.y*volumeSizeY*(v12.y/fabs(v12.y));
+					}
+					if (fabs(v12.z) > volumeSizeZ/2.0) {
+						v12.z -= volumeSizeZ*v12.z/fabs(v12.z);
+						kL += k.z*volumeSizeZ*(v12.z/fabs(v12.z));
+					}
+					complex<double> ikL(0,kL);
+					boundaryCoeff = exp(ikL);
+				#else
+					if (fabs(v12.x) > volumeSizeX/2.0) {
+						v12.x -= volumeSizeX*v12.x/fabs(v12.x);
+						boundaryCoeff = BOUNDARYCOEFF;
+					}
+					if (fabs(v12.y) > volumeSizeY/2.0)
+						v12.y -= volumeSizeY*v12.y/fabs(v12.y);
+					if (fabs(v12.z) > volumeSizeZ/2.0)
+						v12.z -= volumeSizeZ*v12.z/fabs(v12.z);
+				#endif
 				V<double> v12norm = (1.0/sqrt(v12*v12))*v12;
 				double l = v12norm.x;
 				double m = v12norm.y;
@@ -1490,6 +1582,7 @@ int main() {
 				V<double> v12unstrained;
 				v12unstrained = v2unstrained - v1unstrained;
 
+				// calculate d0
 				if (fabs(v12unstrained.x) > volumeSize/2.0)
 					v12unstrained.x -= volumeSize*v12unstrained.x/fabs(v12unstrained.x);
 				if (fabs(v12unstrained.y) > volumeSize/2.0)
@@ -1637,9 +1730,29 @@ int main() {
 
 
 #ifdef BOYKIN2002
-				boundaryCoeff = 1.0;
-				if (fabs(v12unstrained.x) > volumeSize/2.0)
-					boundaryCoeff = BOUNDARYCOEFF;
+				v12unstrained = v2unstrained - v1unstrained;
+				#ifdef BANDSTRUCTURE
+					kL = 0;
+					if (fabs(v12unstrained.x) > volumeSize/2.0) {
+						v12unstrained.x -= volumeSize*v12unstrained.x/fabs(v12unstrained.x);
+						kL += k.x*volumeSize*(v12unstrained.x/fabs(v12unstrained.x));
+					}
+					if (fabs(v12unstrained.y) > volumeSize/2.0) {
+						v12unstrained.y -= volumeSize*v12unstrained.y/fabs(v12unstrained.y);
+						kL += k.y*volumeSize*(v12unstrained.y/fabs(v12unstrained.y));
+					}
+					if (fabs(v12unstrained.z) > volumeSize/2.0) {
+						v12unstrained.z -= volumeSize*v12unstrained.z/fabs(v12unstrained.z);
+						kL += k.z*volumeSize*(v12unstrained.z/fabs(v12unstrained.z));
+					}
+					ikL = li*kL;
+					boundaryCoeff = exp(ikL);
+				#else
+					boundaryCoeff = 1.0;
+					if (fabs(v12unstrained.x) > volumeSize/2.0)
+						boundaryCoeff = BOUNDARYCOEFF;
+				#endif
+				// v12unstrainedNorm already calculated (but v12unstrained is incorrect here)
 				l = v12unstrainedNorm.x;
 				m = v12unstrainedNorm.y;
 				n = v12unstrainedNorm.z;
@@ -1804,7 +1917,7 @@ int main() {
 				}
 			}
 
-
+	
 #ifdef PRINT_H
 			// Hamiltonean printer
 			for(int i=0; i<10; i++) {
@@ -1876,12 +1989,13 @@ int main() {
 //////////////////////////  OUTPUT CSR  /////////////////////////////////////////////////////
 		//{
 		char filename[100];
-		sprintf(filename, "../FCSR20x%i_%i", N, currentCSRval);
+		//sprintf(filename, "../FCSR20x%i_%i", N, currentCSRval);
+		sprintf(filename, "../FCSR");
 		char filename_out[100];
 #ifdef CSRTEXT		
 		sprintf(filename_out, "%s.dat", filename);
 		out = fopen(filename_out, "w");
-		if (out==NULL) fprintf(stderr,"error: can't open the file %s for writing.\n",filename_out),exit(0);
+		if (out==NULL) fprintf(stderr,"error: can't open the file %s for writing.\n",filename_out),exit(1);
 		#ifdef UI
 		printf("writing CSR to a text file %s\n", filename_out);
 		#endif
@@ -1907,7 +2021,7 @@ int main() {
 #endif
 #ifdef CSRBINARY
 		sprintf(filename_out, "%s.bin", filename);
-		out = fopen(filename_out, "wb"); if (out==NULL) fprintf(stderr,"Error!\ncan't open the file %s for writing.\n",filename_out),exit(0);
+		out = fopen(filename_out, "wb"); if (out==NULL) fprintf(stderr,"Error!\ncan't open the file %s for writing.\n",filename_out),exit(1);
 		#ifdef UI
 		printf("writing CSR to a binary file %s\n", filename_out);
 		#endif
@@ -1938,7 +2052,33 @@ int main() {
 		free(CSRcols);
 		//}
 
-//	}          //k forcircle
+#ifdef BANDSTRUCTURE
+		#ifdef UI
+		cout << "running solver" << endl;
+		#endif
+		char char_k_x[10];
+		char char_k_y[10];
+		char char_k_z[10];
+		sprintf(char_k_x, "%f", k.x);
+		sprintf(char_k_y, "%f", k.y);
+		sprintf(char_k_z, "%f", k.z);
+		char const * solver_path = cfg.lookup("solver_path");
+		char const * solver_name = cfg.lookup("solver_name");
+		//int execerrno = execl(solver_path, solver_name, char_k_x, char_k_y, char_k_z);
+		pid_t solverpid = fork();
+		if (solverpid == -1) { fprintf(stderr, "fork() failed\n"); exit(1); }
+		if (solverpid ==  0) {
+			int execerrno = execl("/mnt/storage/home/aakoshkarev/cpp/eigenmodel/slepc_solver/main", "main", char_k_x, char_k_y, char_k_z, (char*)0 );
+			printf("error: can't execl %s\n", solver_path);
+		}
+		else {
+			int status;
+			waitpid(solverpid, &status, 0);
+			//wait(&status);
+			printf("solverpid = %i; status = %i\n", solverpid, status);
+		}
+	}          //k forcircle
+#endif
 
 	return 0;
 }

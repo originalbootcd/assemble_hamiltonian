@@ -1,7 +1,7 @@
-CXX		= icpc
+CXX			= icpc
 CXXFLAGS	= -std=c++11 -g
-INCLUDE		= $(HOME)/anton/boost_1_49_0
-
+INCLUDE		= -I$(HOME)/anton/boost_1_49_0 -I$(HOME)/include
+LIBS		= -L$(HOME)/lib -lconfig++
 
 all:
-	@$(CXX) main.cpp -o main -I$(INCLUDE) $(CXXFLAGS)
+	@$(CXX) main.cpp -o main $(INCLUDE) $(CXXFLAGS) $(LIBS)
