@@ -760,40 +760,6 @@ int main(int argc, char * argv[]) {
 				Es_ = 19.1165;
 				Ed = 13.7895;
 				delta = 0.03978;
-
-				strain_exponent_V_S_S_Sigma	= 0.56247;
-				strain_exponent_V_S_P_Sigma = 2.36548;
-				strain_exponent_V_Sstar_P_Sigma = 0.34492;
-				strain_exponent_V_S_Sstar_Sigma = 0.13203;
-				strain_exponent_V_Sstar_S_Sigma = 0.13203;
-				strain_exponent_V_Sstar_Sstar_Sigma = 0.19237;
-				strain_exponent_V_Sstar_D_Sigma = 1.08601;
-				strain_exponent_V_S_D_Sigma = 2.56720;
-				strain_exponent_V_P_P_Sigma = 0.2;
-				strain_exponent_V_P_P_Pi = 1.6777;
-				strain_exponent_V_P_D_Sigma = 0.2;
-				strain_exponent_V_P_D_Pi = 4.4325;
-				strain_exponent_V_D_D_Sigma = 0.1;
-				strain_exponent_V_D_D_Pi = 6;
-				strain_exponent_V_D_D_Delta = 5.9997;
-
-				strain_constant_K_S_S = 1.0875;
-				strain_constant_K_S_P = 0.4001;
-				strain_constant_K_Sstar_P = 1.8597;
-				strain_constant_K_Sstar_S = 1.1374;
-				strain_constant_K_S_Sstar = 1.1374;
-				strain_constant_K_Sstar_D = 0.2978;
-				strain_constant_K_Sstar_Sstar = 0.5986;
-				strain_constant_K_S_D = 0;
-				strain_constant_K_P_D = 0.0564;
-				strain_constant_K_P_P = 0;
-				strain_constant_K_D_D = 2.1071;
-				Z_eff = 3.0;
-				r_P_D = 0.1249;
-				r2_P_P = 0.1227;
-				r2_D_D = 0.5147;
-				r3_P_D = 0.0;
-				r4_D_D = 0.7661;
 				Energy_shift = 27;
 			}
 			else {
@@ -804,36 +770,6 @@ int main(int argc, char * argv[]) {
 				Es_ = 19.296;
 				Ed = 13.5806;
 				delta = 0.20264;
-
-
-				strain_exponent_V_S_S_Sigma = 1.99551;
-				strain_exponent_V_S_P_Sigma = 1.29303;
-				strain_exponent_V_Sstar_P_Sigma = 5.0000;
-				strain_exponent_V_S_Sstar_Sigma = 0.0000;
-				strain_exponent_V_Sstar_S_Sigma = 0.0000;
-				strain_exponent_V_Sstar_Sstar_Sigma = 2.38823;
-				strain_exponent_V_Sstar_D_Sigma = 0.75134;
-				strain_exponent_V_S_D_Sigma = 2.79244;
-				strain_exponent_V_P_P_Sigma = 1.13641;
-				strain_exponent_V_P_P_Pi = 1.74803;
-				strain_exponent_V_P_D_Sigma = 2.68784;
-				strain_exponent_V_P_D_Pi = 4.36921;
-				strain_exponent_V_D_D_Sigma = 5.00000;
-				strain_exponent_V_D_D_Pi = 0.69769;
-				strain_exponent_V_D_D_Delta = 3.06253;
-
-				strain_constant_K_S_S = 0.0000;
-				strain_constant_K_S_P = 1.2507;
-				strain_constant_K_Sstar_P = 2.6841;
-				strain_constant_K_Sstar_S = 1.1766;
-				strain_constant_K_S_Sstar = 1.1766;
-				strain_constant_K_Sstar_D = 1.2276;
-				strain_constant_K_Sstar_Sstar = 2.6841;
-				strain_constant_K_S_D = 0.1524;
-				strain_constant_K_P_D = 0.1143;
-				strain_constant_K_P_P = 0.3626;
-				strain_constant_K_D_D = 1.9527;
-
 				Energy_shift = 27.77;
 			}
 			
@@ -884,6 +820,39 @@ int main(int argc, char * argv[]) {
 					DDS = -1.32941;
 					DDP = 2.56261;
 					DDD = -1.9512;
+					strain_exponent_V_S_S_Sigma = 1.99551;
+					strain_exponent_V_S_P_Sigma = 1.29303;
+					strain_exponent_V_Sstar_P_Sigma = 5.0000;
+					strain_exponent_V_S_Sstar_Sigma = 0.0000;
+					strain_exponent_V_Sstar_S_Sigma = 0.0000;
+					strain_exponent_V_Sstar_Sstar_Sigma = 2.38823;
+					strain_exponent_V_Sstar_D_Sigma = 0.75134;
+					strain_exponent_V_S_D_Sigma = 2.79244;
+					strain_exponent_V_P_P_Sigma = 1.13641;
+					strain_exponent_V_P_P_Pi = 1.74803;
+					strain_exponent_V_P_D_Sigma = 2.68784;
+					strain_exponent_V_P_D_Pi = 4.36921;
+					strain_exponent_V_D_D_Sigma = 5.00000;
+					strain_exponent_V_D_D_Pi = 0.69769;
+					strain_exponent_V_D_D_Delta = 3.06253;
+
+					strain_constant_K_S_S = 0.0000;
+					strain_constant_K_S_P = 1.2507;
+					strain_constant_K_Sstar_P = 2.6841;
+					strain_constant_K_Sstar_S = 1.1766;
+					strain_constant_K_S_Sstar = 1.1766;
+					strain_constant_K_Sstar_D = 1.2276;
+					strain_constant_K_Sstar_Sstar = 2.6841;
+					strain_constant_K_S_D = 0.1524;
+					strain_constant_K_P_D = 0.1143;
+					strain_constant_K_P_P = 0.3626;
+					strain_constant_K_D_D = 1.9527;
+					Z_eff = 0.0;
+					r_P_D = 0.0;
+					r2_P_P = 0.0;
+					r2_D_D = 0.0;
+					r3_P_D = 0.0;
+					r4_D_D = 0.0;
 				}
 				if ((ifSIcurrentNeighbour == ifSIcurrentPsi) && (ifSIcurrentPsi == true)) {
 					//SI-SI
@@ -902,6 +871,39 @@ int main(int argc, char * argv[]) {
 					DDS = -1.68136;
 					DDP = 2.5888;
 					DDD = -1.814;
+					strain_exponent_V_S_S_Sigma	= 0.56247;
+					strain_exponent_V_S_P_Sigma = 2.36548;
+					strain_exponent_V_Sstar_P_Sigma = 0.34492;
+					strain_exponent_V_S_Sstar_Sigma = 0.13203;
+					strain_exponent_V_Sstar_S_Sigma = 0.13203;
+					strain_exponent_V_Sstar_Sstar_Sigma = 0.19237;
+					strain_exponent_V_Sstar_D_Sigma = 1.08601;
+					strain_exponent_V_S_D_Sigma = 2.56720;
+					strain_exponent_V_P_P_Sigma = 0.2;
+					strain_exponent_V_P_P_Pi = 1.6777;
+					strain_exponent_V_P_D_Sigma = 0.2;
+					strain_exponent_V_P_D_Pi = 4.4325;
+					strain_exponent_V_D_D_Sigma = 0.1;
+					strain_exponent_V_D_D_Pi = 6;
+					strain_exponent_V_D_D_Delta = 5.9997;
+
+					strain_constant_K_S_S = 1.0875;
+					strain_constant_K_S_P = 0.4001;
+					strain_constant_K_Sstar_P = 1.8597;
+					strain_constant_K_Sstar_S = 1.1374;
+					strain_constant_K_S_Sstar = 1.1374;
+					strain_constant_K_Sstar_D = 0.2978;
+					strain_constant_K_Sstar_Sstar = 0.5986;
+					strain_constant_K_S_D = 0;
+					strain_constant_K_P_D = 0.0564;
+					strain_constant_K_P_P = 0;
+					strain_constant_K_D_D = 2.1071;
+					Z_eff = 3.0;
+					r_P_D = 0.1249;
+					r2_P_P = 0.1227;
+					r2_D_D = 0.5147;
+					r3_P_D = 0.0;
+					r4_D_D = 0.7661;
 				}
 				if (ifSIcurrentNeighbour != ifSIcurrentPsi) {
 					//GE-SI
@@ -920,6 +922,40 @@ int main(int argc, char * argv[]) {
 					DDS   = -1.505385;	// (-1.32941-1.68136)/2.0;
 					DDP   = 2.575705;	// (2.56261+2.5888)/2.0;
 					DDD   = -1.8826;	// (-1.9512-1.814)/2.0;
+
+					strain_exponent_V_S_S_Sigma = 1.27899;			//(0.56247+1.99551)/2.0;
+					strain_exponent_V_S_P_Sigma = 1.829255;			//(1.29303+2.36548)/2.0;
+					strain_exponent_V_Sstar_P_Sigma = 2.67246;		//(5.0000+0.34492)/2.0;
+					strain_exponent_V_S_Sstar_Sigma = 0.13203;		//(0.0000+0.13203)/2.0;
+					strain_exponent_V_Sstar_S_Sigma = 0.13203;		//(0.0000+0.13203)/2.0;
+					strain_exponent_V_Sstar_Sstar_Sigma = 1.2903;	//(2.38823+0.19237)/2.0;
+					strain_exponent_V_Sstar_D_Sigma = 0.918675;		//(0.75134+1.08601)/2.0;
+					strain_exponent_V_S_D_Sigma = 2.67982;			//(2.79244+2.56720)/2.0;
+					strain_exponent_V_P_P_Sigma = 0.668205;			//(1.13641+0.2)/2.0;
+					strain_exponent_V_P_P_Pi = 1.712865;			//(1.74803+1.6777)/2.0;
+					strain_exponent_V_P_D_Sigma = 1.44392;			//(2.68784+0.2)/2.0;
+					strain_exponent_V_P_D_Pi = 4.400855;			//(4.36921+4.4325)/2.0;
+					strain_exponent_V_D_D_Sigma = 2.55;				//(5.00000+0.1)/2.0;
+					strain_exponent_V_D_D_Pi = 3.348845;			//(0.69769+6.0)/2.0;
+					strain_exponent_V_D_D_Delta = 4.531115;			//(3.06253+5.9997)/2.0;
+
+					strain_constant_K_S_S = 1.0875;				//(0.0+1.0875)/2.0;
+					strain_constant_K_S_P = 0.8254;				//(1.2507+0.4001)/2.0;
+					strain_constant_K_Sstar_P = 2.2719;			//(2.6841+1.8597)/2.0;
+					strain_constant_K_Sstar_S = 1.157;			//(1.1766+1.1374)/2.0;
+					strain_constant_K_S_Sstar = 1.157;			//(1.1766+1.1374)/2.0;
+					strain_constant_K_Sstar_D = 0.7627;			//(1.2276+0.2978)/2.0;
+					strain_constant_K_Sstar_Sstar = 1.64135;	//(2.6841+0.5986)/2.0;
+					strain_constant_K_S_D = 0.1524;				//(0.1524+0.0)/2.0;
+					strain_constant_K_P_D = 0.08535;			//(0.1143+0.0564)/2.0;
+					strain_constant_K_P_P = 0.3626;				//(0.3626+0.0)/2.0;
+					strain_constant_K_D_D = 2.0299;				//(1.9527+2.1071)/2.0;
+					Z_eff = 0.0;
+					r_P_D = 0.0;
+					r2_P_P = 0.0;
+					r2_D_D = 0.0;
+					r3_P_D = 0.0;
+					r4_D_D = 0.0;
 				}
 
 				complex<double> boundaryCoeff(1.0, 0.0);
@@ -1278,6 +1314,134 @@ int main(int argc, char * argv[]) {
 							Htmp[gamma*20*N + (currentPsi->d->n-1)*10 + alpha] += (Htmp[gamma*20*N + (currentNeighbour->d->n-1)*10 + beta]*Htmp[beta*20*N + (currentNeighbour->d->n-1)*10 + alpha] - slaterkoster[gamma][beta]*slaterkoster[beta][alpha]) * (-Kjbia/(Ejb+Eia)/2.0 -Kigjb/(Eig+Ejb)/2.0 -Kigjb*Kjbia*(1.0/(Ejb+Eia)+1.0/(Eig+Ejb))/4.0);
 						}
 					}
+#endif
+
+
+
+#ifdef BOYKIN2010
+				complex<double> modified_slaterkoster[10][10];
+				for (int i=0; i<10; i++)
+					for (int j=0; j<10; j++)
+						modified_slaterkoster[i][j] = 0.0;
+
+
+				coeff = - qe*qe*Zeff
+				PPS = coeff
+
+				//{
+				modified_slaterkoster[0][0] =   SSS;
+				modified_slaterkoster[0][1] = - l * SPS;
+				modified_slaterkoster[0][2] = - m * SPS;
+				modified_slaterkoster[0][3] = - n * SPS;
+				modified_slaterkoster[0][4] =   SS_S;
+				modified_slaterkoster[0][5] =   sqrt(3.0)*l*m*SDS;			//xy
+				modified_slaterkoster[0][6] =   sqrt(3.0)*m*n*SDS;			//yz
+				modified_slaterkoster[0][7] =   sqrt(3.0)*n*l*SDS;			//zx
+				modified_slaterkoster[0][8] =   sqrt(3.0)/2.0*(l*l-m*m)*SDS;	// x^2 - y^2
+				modified_slaterkoster[0][9] =   (n*n-0.5*(l*l+m*m))*SDS;	//3z^2 - r^2
+
+				modified_slaterkoster[1][0] =   l*SPS;
+				modified_slaterkoster[1][1] =   (l*l*(PPS-PPP) + PPP);
+				modified_slaterkoster[1][2] =   l*m*(PPS-PPP);
+				modified_slaterkoster[1][3] =   l*n*(PPS-PPP);
+				modified_slaterkoster[1][4] =   l*S_PS;
+				modified_slaterkoster[1][5] = - (sqrt(3.0)*l*l*m*PDS + m*(1.0-2.0*l*l)*PDP);
+				modified_slaterkoster[1][6] = - (sqrt(3.0)*l*m*n*PDS - 2.0*l*m*n*PDP);
+				modified_slaterkoster[1][7] = - (sqrt(3.0)*l*n*l*PDS + n*(1.0-2.0*l*l)*PDP);
+				modified_slaterkoster[1][8] = - (sqrt(3.0)/2.0*l*(l*l-m*m)*PDS + l*(1.0-l*l+m*m)*PDP);
+				modified_slaterkoster[1][9] = - (l*(n*n-0.5*(l*l+m*m))*PDS - sqrt(3.0)*l*n*n*PDP);
+
+				modified_slaterkoster[2][0] =   m*SPS;
+				modified_slaterkoster[2][1] =   m*l*(PPS-PPP);
+				modified_slaterkoster[2][2] =   (m*m*(PPS-PPP) + PPP);
+				modified_slaterkoster[2][3] =   m*n*(PPS-PPP);
+				modified_slaterkoster[2][4] =   m*S_PS;
+				modified_slaterkoster[2][5] = - (sqrt(3.0)*m*l*m*PDS + l*(1.0-2.0*m*m)*PDP);
+				modified_slaterkoster[2][6] = - (sqrt(3.0)*m*m*n*PDS + n*(1.0-2.0*m*m)*PDP);
+				modified_slaterkoster[2][7] = - (sqrt(3.0)*m*n*l*PDS - 2.0*l*m*n*PDP);
+				modified_slaterkoster[2][8] = - (sqrt(3.0)/2.0*m*(l*l-m*m)*PDS - m*(1.0+l*l-m*m)*PDP);
+				modified_slaterkoster[2][9] = - (m*(n*n-0.5*(l*l+m*m))*PDS - sqrt(3.0)*m*n*n*PDP);
+
+				modified_slaterkoster[3][0] =   n*SPS;
+				modified_slaterkoster[3][1] =   n*l*(PPS-PPP);
+				modified_slaterkoster[3][2] =   n*m*(PPS-PPP);
+				modified_slaterkoster[3][3] =   (n*n*(PPS-PPP) + PPP);
+				modified_slaterkoster[3][4] =   n*S_PS;
+				modified_slaterkoster[3][5] = - (sqrt(3.0)*n*l*m*PDS - 2.0*l*m*n*PDP);
+				modified_slaterkoster[3][6] = - (sqrt(3.0)*n*m*n*PDS + m*(1.0-2.0*n*n)*PDP);
+				modified_slaterkoster[3][7] = - (sqrt(3.0)*n*n*l*PDS + l*(1.0-2.0*n*n)*PDP);
+				modified_slaterkoster[3][8] = - (sqrt(3.0)/2.0*n*(l*l-m*m)*PDS - n*(l*l-m*m)*PDP);
+				modified_slaterkoster[3][9] = - (n*(n*n-0.5*(l*l+m*m))*PDS + sqrt(3.0)*n*(l*l+m*m)*PDP);
+
+				modified_slaterkoster[4][0] =   SS_S;
+				modified_slaterkoster[4][1] = - l * S_PS;
+				modified_slaterkoster[4][2] = - m * S_PS;
+				modified_slaterkoster[4][3] = - n * S_PS;
+				modified_slaterkoster[4][4] =   S_S_S;
+				modified_slaterkoster[4][5] =   sqrt(3.0)*l*m*S_DS;
+				modified_slaterkoster[4][6] =   sqrt(3.0)*m*n*S_DS;
+				modified_slaterkoster[4][7] =   sqrt(3.0)*n*l*S_DS;
+				modified_slaterkoster[4][8] =   sqrt(3.0)/2.0*(l*l-m*m)*S_DS;
+				modified_slaterkoster[4][9] =   (n*n-0.5*(l*l+m*m))*S_DS;
+
+
+
+				modified_slaterkoster[5][0] =   sqrt(3.0)*l*m*SDS;
+				modified_slaterkoster[5][1] =   (sqrt(3.0)*l*l*m*PDS + m*(1.0-2.0*l*l)*PDP);
+				modified_slaterkoster[5][2] =   (sqrt(3.0)*m*l*m*PDS + l*(1.0-2.0*m*m)*PDP);
+				modified_slaterkoster[5][3] =   (sqrt(3.0)*n*l*m*PDS - 2.0*l*m*n*PDP);
+				modified_slaterkoster[5][4] =   sqrt(3.0)*l*m*S_DS;
+				modified_slaterkoster[5][5] =   (3.0*l*m*l*m*DDS + (l*l+m*m-4.0*l*l*m*m)*DDP + (n*n+l*l*m*m)*DDD);
+				modified_slaterkoster[5][6] =   (3.0*l*m*m*n*DDS + l*n*(1.0-4.0*m*m)*DDP + l*n*(m*m-1.0)*DDD);
+				modified_slaterkoster[5][7] =   (3.0*l*m*n*l*DDS + m*n*(1.0-4.0*l*l)*DDP + m*n*(l*l-1.0)*DDD);
+				modified_slaterkoster[5][8] =   (1.5*l*m*(l*l-m*m)*DDS + 2.0*l*m*(m*m-l*l)*DDP + 0.5*l*m*(l*l-m*m)*DDD);
+				modified_slaterkoster[5][9] =   (sqrt(3.0)*l*m*(n*n-0.5*(l*l+m*m))*DDS - 2.0*sqrt(3.0)*l*m*n*n*DDP + sqrt(3.0)/2.0*l*m*(1.0+n*n)*DDD);
+
+				modified_slaterkoster[6][0] =   sqrt(3.0)*m*n*SDS;
+				modified_slaterkoster[6][1] =   (sqrt(3.0)*l*m*n*PDS - 2.0*l*m*n*PDP);
+				modified_slaterkoster[6][2] =   (sqrt(3.0)*m*m*n*PDS + n*(1.0-2.0*m*m)*PDP);
+				modified_slaterkoster[6][3] =   (sqrt(3.0)*n*m*n*PDS + m*(1.0-2.0*n*n)*PDP);
+				modified_slaterkoster[6][4] =   sqrt(3.0)*m*n*S_DS;
+				modified_slaterkoster[6][5] =   (3.0*m*n*l*m*DDS + l*n*(1.0-4.0*m*m)*DDP + l*n*(m*m-1.0)*DDD);
+				modified_slaterkoster[6][6] =   (3.0*m*n*m*n*DDS + (m*m+n*n-4.0*m*m*n*n)*DDP + (l*l+m*m*n*n)*DDD);
+				modified_slaterkoster[6][7] =   (3.0*m*n*n*l*DDS + m*l*(1.0-4.0*n*n)*DDP + m*l*(n*n-1.0)*DDD);
+				modified_slaterkoster[6][8] =   (1.5*m*n*(l*l-m*m)*DDS - m*n*(1.0+2.0*(l*l-m*m))*DDP + m*n*(1.0+0.5*(l*l-m*m))*DDD);
+				modified_slaterkoster[6][9] =   (sqrt(3.0)*m*n*(n*n-0.5*(l*l+m*m))*DDS + sqrt(3.0)*m*n*(l*l+m*m-n*n)*DDP - sqrt(3.0)/2.0*m*n*(l*l+m*m)*DDD);
+
+				modified_slaterkoster[7][0] =   sqrt(3.0)*n*l*SDS;
+				modified_slaterkoster[7][1] =   (sqrt(3.0)*l*n*l*PDS + n*(1.0-2.0*l*l)*PDP);
+				modified_slaterkoster[7][2] =   (sqrt(3.0)*m*n*l*PDS - 2.0*l*m*n*PDP);
+				modified_slaterkoster[7][3] =   (sqrt(3.0)*n*n*l*PDS + l*(1.0-2.0*n*n)*PDP);
+				modified_slaterkoster[7][4] =   sqrt(3.0)*n*l*S_DS;
+				modified_slaterkoster[7][5] =   (3.0*n*l*l*m*DDS + n*m*(1.0-4.0*l*l)*DDP + n*m*(l*l-1.0)*DDD);
+				modified_slaterkoster[7][6] =   (3.0*n*l*m*n*DDS + l*m*(1.0-4.0*n*n)*DDP + l*m*(n*n-1.0)*DDD);
+				modified_slaterkoster[7][7] =   (3.0*n*l*n*l*DDS + (n*n+l*l-4.0*n*n*l*l)*DDP + (m*m+n*n*l*l)*DDD);
+				modified_slaterkoster[7][8] =   (1.5*n*l*(l*l-m*m)*DDS + n*l*(1.0-2.0*(l*l-m*m))*DDP - n*l*(1.0-0.5*(l*l-m*m))*DDD);
+				modified_slaterkoster[7][9] =   (sqrt(3.0)*l*n*(n*n-0.5*(l*l+m*m))*DDS + sqrt(3.0)*l*n*(l*l+m*m-n*n)*DDP - sqrt(3.0)/2.0*l*n*(l*l+m*m)*DDD);
+
+				modified_slaterkoster[8][0] =   sqrt(3.0)/2.0*(l*l-m*m)*SDS;
+				modified_slaterkoster[8][1] =   (sqrt(3.0)/2.0*l*(l*l-m*m)*PDS + l*(1.0-l*l+m*m)*PDP);
+				modified_slaterkoster[8][2] =   (sqrt(3.0)/2.0*m*(l*l-m*m)*PDS - m*(1.0+l*l-m*m)*PDP);
+				modified_slaterkoster[8][3] =   (sqrt(3.0)/2.0*n*(l*l-m*m)*PDS - n*(l*l-m*m)*PDP);
+				modified_slaterkoster[8][4] =   sqrt(3.0)/2.0*(l*l-m*m)*S_DS;
+				modified_slaterkoster[8][5] =   (1.5*l*m*(l*l-m*m)*DDS + 2.0*l*m*(m*m-l*l)*DDP + 0.5*l*m*(l*l-m*m)*DDD);
+				modified_slaterkoster[8][6] =   (1.5*m*n*(l*l-m*m)*DDS - m*n*(1.0+2.0*(l*l-m*m))*DDP + m*n*(1.0+0.5*(l*l-m*m))*DDD);
+				modified_slaterkoster[8][7] =   (1.5*n*l*(l*l-m*m)*DDS + n*l*(1.0-2.0*(l*l-m*m))*DDP - n*l*(1.0-0.5*(l*l-m*m))*DDD);
+				modified_slaterkoster[8][8] =   (0.75*(l*l-m*m)*(l*l-m*m)*DDS + (l*l+m*m-(l*l-m*m)*(l*l-m*m))*DDP + (n*n+0.25*(l*l-m*m)*(l*l-m*m))*DDD);
+				modified_slaterkoster[8][9] =   (sqrt(3.0)/2.0*(l*l-m*m)*(n*n-0.5*(l*l+m*m))*DDS + sqrt(3.0)*n*n*(m*m-l*l)*DDP + sqrt(3.0)/4.0*(1.0+n*n)*(l*l-m*m)*DDD);
+
+				modified_slaterkoster[9][0] =   (n*n-0.5*(l*l+m*m))*SDS;
+				modified_slaterkoster[9][1] =   (l*(n*n-0.5*(l*l+m*m))*PDS - sqrt(3.0)*l*n*n*PDP);
+				modified_slaterkoster[9][2] =   (m*(n*n-0.5*(l*l+m*m))*PDS - sqrt(3.0)*m*n*n*PDP);
+				modified_slaterkoster[9][3] =   (n*(n*n-0.5*(l*l+m*m))*PDS + sqrt(3.0)*n*(l*l+m*m)*PDP);
+				modified_slaterkoster[9][4] =   (n*n-0.5*(l*l+m*m))*S_DS;
+				modified_slaterkoster[9][5] =   (sqrt(3.0)*l*m*(n*n-0.5*(l*l+m*m))*DDS - 2.0*sqrt(3.0)*l*m*n*n*DDP + sqrt(3.0)/2.0*l*m*(1.0+n*n)*DDD);
+				modified_slaterkoster[9][6] =   (sqrt(3.0)*m*n*(n*n-0.5*(l*l+m*m))*DDS + sqrt(3.0)*m*n*(l*l+m*m-n*n)*DDP - sqrt(3.0)/2.0*m*n*(l*l+m*m)*DDD);
+				modified_slaterkoster[9][7] =   (sqrt(3.0)*l*n*(n*n-0.5*(l*l+m*m))*DDS + sqrt(3.0)*l*n*(l*l+m*m-n*n)*DDP - sqrt(3.0)/2.0*l*n*(l*l+m*m)*DDD);
+				modified_slaterkoster[9][8] =   (sqrt(3.0)/2.0*(l*l-m*m)*(n*n-0.5*(l*l+m*m))*DDS + sqrt(3.0)*n*n*(m*m-l*l)*DDP + sqrt(3.0)/4.0*(1.0+n*n)*(l*l-m*m)*DDD);
+				modified_slaterkoster[9][9] =   ((n*n-0.5*(l*l+m*m))*(n*n-0.5*(l*l+m*m))*DDS + 3.0*n*n*(l*l+m*m)*DDP + 0.75*(l*l+m*m)*(l*l+m*m)*DDD);
+				//}
+
 #endif
 
 
@@ -1988,6 +2152,7 @@ int main(int argc, char * argv[]) {
 #endif
 //////////////////////////  OUTPUT CSR  /////////////////////////////////////////////////////
 		//{
+		waitpid(-1, NULL, 0);
 		char filename[100];
 		//sprintf(filename, "../FCSR20x%i_%i", N, currentCSRval);
 		sprintf(filename, "../FCSR");
@@ -2072,10 +2237,9 @@ int main(int argc, char * argv[]) {
 			printf("error: can't execl %s\n", solver_path);
 		}
 		else {
-			int status;
-			waitpid(solverpid, &status, 0);
-			//wait(&status);
-			printf("solverpid = %i; status = %i\n", solverpid, status);
+			//int status;
+			//waitpid(-1, &status, 0);
+			//printf("solverpid = %i; status = %i\n", solverpid, status);
 		}
 	}          //k forcircle
 #endif
